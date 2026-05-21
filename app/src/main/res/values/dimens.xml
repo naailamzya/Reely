@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_display_xl">40sp</dimen>
+    <dimen name="text_display_lg">32sp</dimen>
+    <dimen name="text_display_md">26sp</dimen>
+
+    <dimen name="text_headline_lg">22sp</dimen>
+    <dimen name="text_headline_md">18sp</dimen>
+    <dimen name="text_headline_sm">16sp</dimen>
+
+    <dimen name="text_body_lg">15sp</dimen>
+    <dimen name="text_body_md">14sp</dimen>
+    <dimen name="text_body_sm">13sp</dimen>
+
+    <dimen name="text_label_lg">12sp</dimen>
+    <dimen name="text_label_md">11sp</dimen>
+    <dimen name="text_label_sm">10sp</dimen>
+
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <dimen name="radius_sm">8dp</dimen>
+    <dimen name="radius_md">12dp</dimen>
+    <dimen name="radius_lg">16dp</dimen>
+    <dimen name="radius_xl">24dp</dimen>
+    <dimen name="radius_pill">100dp</dimen>
+
+    <dimen name="bottom_nav_height">64dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="hero_banner_height">240dp</dimen>
+    <dimen name="movie_card_width">140dp</dimen>
+    <dimen name="movie_card_height">210dp</dimen>
+    <dimen name="mood_card_width">120dp</dimen>
+    <dimen name="mood_card_height">72dp</dimen>
+    <dimen name="poster_detail_height">280dp</dimen>
+
+</resources>

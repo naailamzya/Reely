@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // Dark Theme
+    <color name="night_bg_primary">#0A0E1A</color>
+    <color name="night_bg_secondary">#0F1420</color>
+    <color name="night_bg_card">#141927</color>
+    <color name="night_bg_surface">#1A2133</color>
+
+    <color name="night_accent_primary">#E8B86D</color>
+    <color name="night_accent_secondary">#C084FC</color>
+    <color name="night_accent_teal">#2DD4BF</color>
+
+    <color name="night_text_primary">#F1F5F9</color>
+    <color name="night_text_secondary">#94A3B8</color>
+    <color name="night_text_hint">#475569</color>
+
+    <color name="night_gradient_start">#0A0E1A</color>
+    <color name="night_gradient_end">#1A1035</color>
+    <color name="night_hero_gradient_start">#00000000</color>
+    <color name="night_hero_gradient_end">#FF0A0E1A</color>
+
+    <color name="night_nav_background">#0F1420</color>
+    <color name="night_nav_selected">#E8B86D</color>
+    <color name="night_nav_unselected">#475569</color>
+
+    <color name="night_stroke">#1E293B</color>
+    <color name="night_divider">#0F172A</color>
+
+    // Light Theme
+    <color name="soft_bg_primary">#FAF7F2</color>
+    <color name="soft_bg_secondary">#F5F0E8</color>
+    <color name="soft_bg_card">#FFFDF9</color>
+    <color name="soft_bg_surface">#F0EAE0</color>
+
+    <color name="soft_accent_primary">#B5541C</color>
+    <color name="soft_accent_secondary">#8B6914</color>
+    <color name="soft_accent_teal">#1A6B5E</color>
+
+    <color name="soft_text_primary">#1C1917</color>
+    <color name="soft_text_secondary">#57534E</color>
+    <color name="soft_text_hint">#A8A29E</color>
+
+    <color name="soft_gradient_start">#FAF7F2</color>
+    <color name="soft_gradient_end">#EDE6D9</color>
+    <color name="soft_hero_gradient_start">#00000000</color>
+    <color name="soft_hero_gradient_end">#FFFaF7F2</color>
+
+    <color name="soft_nav_background">#F5F0E8</color>
+    <color name="soft_nav_selected">#B5541C</color>
+    <color name="soft_nav_unselected">#A8A29E</color>
+
+    <color name="soft_stroke">#E7E0D5</color>
+    <color name="soft_divider">#F0EAE0</color>
+
+    //Color Based on Mood
+    <!-- Comfort Movie -->
+    <color name="mood_comfort_start">#1A1200</color>
+    <color name="mood_comfort_end">#3D2B00</color>
+    <color name="mood_comfort_accent">#FFB830</color>
+
+    <!-- Rainy Night -->
+    <color name="mood_rainy_start">#060E1F</color>
+    <color name="mood_rainy_end">#0D2444</color>
+    <color name="mood_rainy_accent">#4A90D9</color>
+
+    <!-- Mind Blown -->
+    <color name="mood_mindblow_start">#0D0020</color>
+    <color name="mood_mindblow_end">#200050</color>
+    <color name="mood_mindblow_accent">#A855F7</color>
+
+    <!-- Horror Night -->
+    <color name="mood_horror_start">#0F0000</color>
+    <color name="mood_horror_end">#2D0000</color>
+    <color name="mood_horror_accent">#DC2626</color>
+
+    <!-- Adrenaline Rush -->
+    <color name="mood_adrenaline_start">#150800</color>
+    <color name="mood_adrenaline_end">#3D1500</color>
+    <color name="mood_adrenaline_accent">#F97316</color>
+
+    <!-- Heartbroken -->
+    <color name="mood_heartbroken_start">#0F0615</color>
+    <color name="mood_heartbroken_end">#2A1040</color>
+    <color name="mood_heartbroken_accent">#EC4899</color>
+
+
+    <color name="rating_star">#FFD700</color>
+    <color name="error_red">#EF4444</color>
+    <color name="success_green">#22C55E</color>
+    <color name="transparent">#00000000</color>
+    <color name="scrim_dark">#99000000</color>
+    <color name="scrim_medium">#66000000</color>
+
+</resources>
