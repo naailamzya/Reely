@@ -13,7 +13,6 @@ retrofit = "2.11.0"
 gsonConverter = "2.11.0"
 okhttp = "4.12.0"
 glide = "4.16.0"
-room = "2.6.1"
 swiperefresh = "1.1.0"
 lifecycle = "2.8.3"
 cardview = "1.0.0"
@@ -40,9 +39,6 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
-
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
 lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
