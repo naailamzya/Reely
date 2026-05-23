@@ -19,7 +19,8 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/night_bg_primary"
-            app:expandedTitleAlpha="0">
+            app:expandedTitleMarginBottom="120dp"
+            app:titleEnabled="false">
 
             <ImageView
                 android:id="@+id/ivDetailBackdrop"
