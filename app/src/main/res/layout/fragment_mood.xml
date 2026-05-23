@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutMoodRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/night_bg_primary">
+
+    <View
+        android:id="@+id/viewMoodGradient"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/bg_mood_comfort"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_mood_to_dark_gradient"
+        app:layout_constraintTop_toBottomOf="@id/viewMoodGradient"
+        android:layout_marginTop="-120dp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="56dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mood_title"
+                    android:textSize="26sp"
+                    android:textColor="@color/night_text_primary"
+                    android:fontFamily="sans-serif-light" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mood_subtitle"
+                    android:textSize="13sp"
+                    android:textColor="@color/night_text_secondary"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMoodSelector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="14dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/tvMoodQuote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/quote_comfort"
+                android:textSize="15sp"
+                android:textColor="@color/night_text_primary"
+                android:fontFamily="sans-serif-light"
+                android:textStyle="italic"
+                android:gravity="center"
+                android:paddingHorizontal="32dp"
+                android:layout_marginTop="28dp"
+                android:lineSpacingMultiplier="1.4" />
+
+            <View
+                android:id="@+id/viewQuoteAccent"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/night_accent_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mood_recommendations"
+                android:textSize="14sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/night_text_primary"
+                android:fontFamily="sans-serif-medium"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="28dp" />
+
+            <ProgressBar
+                android:id="@+id/progressMood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:indeterminateTint="@color/night_accent_primary"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/layoutMoodError"
+                layout="@layout/layout_error_state"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMoodMovies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:paddingHorizontal="14dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

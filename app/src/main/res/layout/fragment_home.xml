@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefreshHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/night_bg_primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHeroBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/bg_hero_gradient_overlay" />
+
+                <LinearLayout
+                    android:id="@+id/layoutGreeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp"
+                    android:layout_gravity="top|start">
+
+                    <TextView
+                        android:id="@+id/tvGreeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Good Evening,"
+                        android:textSize="13sp"
+                        android:textColor="@color/night_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="naila"
+                        android:textSize="20sp"
+                        android:textColor="@color/night_text_primary"
+                        android:fontFamily="sans-serif-medium" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutHeroIndicators"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="80dp">
+
+                <include
+                    android:id="@+id/layoutErrorState"
+                    layout="@layout/layout_error_state"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/layoutShimmer"
+                    layout="@layout/layout_shimmer_home"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/sectionNowPlaying"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/home_section_nowplaying"
+                            android:textSize="14sp"
+                            android:letterSpacing="0.1"
+                            android:textColor="@color/night_text_primary"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/tvSeeAllNowPlaying"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_see_all"
+                            android:textSize="12sp"
+                            android:textColor="@color/night_accent_primary" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNowPlaying"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:paddingHorizontal="14dp"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sectionUpcoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="28dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/home_section_upcoming"
+                            android:textSize="14sp"
+                            android:letterSpacing="0.1"
+                            android:textColor="@color/night_text_primary"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/tvSeeAllUpcoming"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_see_all"
+                            android:textSize="12sp"
+                            android:textColor="@color/night_accent_primary" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvUpcoming"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:paddingHorizontal="14dp"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sectionTrending"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="28dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/home_section_trending"
+                            android:textSize="14sp"
+                            android:letterSpacing="0.1"
+                            android:textColor="@color/night_text_primary"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/tvSeeAllTrending"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_see_all"
+                            android:textSize="12sp"
+                            android:textColor="@color/night_accent_primary" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTrending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:paddingHorizontal="14dp"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sectionTopRated"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="28dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/home_section_toprated"
+                            android:textSize="14sp"
+                            android:letterSpacing="0.1"
+                            android:textColor="@color/night_text_primary"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/tvSeeAllTopRated"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_see_all"
+                            android:textSize="12sp"
+                            android:textColor="@color/night_accent_primary" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTopRated"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:paddingHorizontal="14dp"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

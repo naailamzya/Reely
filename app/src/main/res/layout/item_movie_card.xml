@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="140dp"
+    android:layout_height="230dp"
+    android:layout_marginHorizontal="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/night_bg_card"
+    app:strokeColor="@color/night_stroke"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivMoviePoster"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/content_description_movie_poster"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layoutMovieInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_card_bottom_gradient"
+            app:layout_constraintBottom_toTopOf="@id/layoutMovieInfo" />
+
+        <TextView
+            android:id="@+id/tvMovieRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="7dp"
+            android:paddingVertical="3dp"
+            android:text="8.5"
+            android:textSize="10sp"
+            android:textColor="@color/night_bg_primary"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/bg_rating_badge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutMovieInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
+            android:background="@color/night_bg_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvMovieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Movie Title"
+                android:textSize="12sp"
+                android:textColor="@color/night_text_primary"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tvMovieYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024"
+                android:textSize="10sp"
+                android:textColor="@color/night_text_hint"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

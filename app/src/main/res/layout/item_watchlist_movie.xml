@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/night_bg_card"
+    app:strokeColor="@color/night_stroke"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/ivWatchlistPoster"
+            android:layout_width="72dp"
+            android:layout_height="104dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/content_description_movie_poster"
+            android:background="@color/night_bg_surface" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/tvWatchlistTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Movie Title"
+                android:textSize="14sp"
+                android:textColor="@color/night_text_primary"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:id="@+id/tvWatchlistRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="★ 8.5"
+                    android:textSize="12sp"
+                    android:textColor="@color/rating_star" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="3dp"
+                    android:background="@drawable/shape_dot"
+                    android:layout_marginHorizontal="6dp" />
+
+                <TextView
+                    android:id="@+id/tvWatchlistYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024"
+                    android:textSize="12sp"
+                    android:textColor="@color/night_text_secondary" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvWatchlistOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Overview text goes here..."
+                android:textSize="12sp"
+                android:textColor="@color/night_text_secondary"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="6dp"
+                android:lineSpacingMultiplier="1.3" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnRemoveWatchlist"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_icon_btn"
+            android:src="@drawable/ic_bookmark_filled"
+            android:imageTintList="@color/night_accent_primary"
+            android:contentDescription="Remove from watchlist"
+            android:padding="6dp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
