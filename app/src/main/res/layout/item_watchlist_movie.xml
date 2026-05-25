@@ -95,11 +95,11 @@
             android:id="@+id/btnRemoveWatchlist"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="@drawable/bg_icon_btn"
+            android:background="@color/night_bg_surface"
             android:src="@drawable/ic_bookmark_filled"
-            android:imageTintList="@color/night_accent_primary"
             android:contentDescription="Remove from watchlist"
-            android:padding="6dp" />
+            android:padding="6dp"
+            app:tint="@color/night_accent_primary" />
 
     </LinearLayout>
 

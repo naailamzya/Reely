@@ -8,7 +8,6 @@
     app:shimmer_auto_start="true"
     app:shimmer_base_alpha="0.3"
     app:shimmer_highlight_alpha="0.9"
-    app:shimmer_angle="0"
     app:shimmer_duration="1200">
 
     <LinearLayout
@@ -27,8 +26,7 @@
             android:layout_height="14dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="28dp"
-            android:background="@drawable/bg_shimmer_rounded"
-            android:backgroundTint="@color/night_bg_surface" />
+            android:background="@color/night_bg_surface" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,8 +46,7 @@
             android:layout_height="14dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="28dp"
-            android:background="@drawable/bg_shimmer_rounded"
-            android:backgroundTint="@color/night_bg_surface" />
+            android:background="@color/night_bg_surface" />
 
         <LinearLayout
             android:layout_width="match_parent"

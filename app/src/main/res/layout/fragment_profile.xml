@@ -123,7 +123,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_check_circle"
-                    app:imageTintList="@color/night_accent_primary" />
+                    app:tint="@color/night_accent_primary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -176,12 +176,13 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_check_circle"
-                    app:imageTintList="@color/night_accent_primary"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:tint="@color/night_accent_primary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- ── Section: About ── -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -194,6 +195,7 @@
             android:paddingTop="24dp"
             android:paddingBottom="12dp" />
 
+        <!-- App version row -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

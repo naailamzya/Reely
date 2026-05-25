@@ -9,21 +9,18 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/bg_shimmer_rounded"
-        android:backgroundTint="@color/night_bg_surface" />
+        android:background="@color/night_bg_surface" />
 
     <View
         android:layout_width="120dp"
         android:layout_height="11dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bg_shimmer_rounded"
-        android:backgroundTint="@color/night_bg_surface" />
+        android:background="@color/night_bg_surface" />
 
     <View
         android:layout_width="80dp"
         android:layout_height="10dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/bg_shimmer_rounded"
-        android:backgroundTint="@color/night_bg_surface" />
+        android:background="@color/night_bg_surface" />
 
 </LinearLayout>
