@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setupGreeting();
         setupRecyclerViews();
         setupViewModel();
@@ -70,36 +69,31 @@ public class HomeFragment extends Fragment {
         heroAdapter = new HeroAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvHeroBanner.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvHeroBanner.setAdapter(heroAdapter);
 
         nowPlayingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvNowPlaying.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvNowPlaying.setAdapter(nowPlayingAdapter);
 
         upcomingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvUpcoming.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvUpcoming.setAdapter(upcomingAdapter);
 
         trendingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvTrending.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTrending.setAdapter(trendingAdapter);
 
         topRatedAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvTopRated.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopRated.setAdapter(topRatedAdapter);
     }
 
@@ -114,35 +108,27 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getUpcomingMovies().observe(getViewLifecycleOwner(), movies -> {
-            if (movies != null) {
-                upcomingAdapter.setMovies(movies);
-            }
+            if (movies != null) upcomingAdapter.setMovies(movies);
         });
 
         viewModel.getTrendingMovies().observe(getViewLifecycleOwner(), movies -> {
-            if (movies != null) {
-                trendingAdapter.setMovies(movies);
-            }
+            if (movies != null) trendingAdapter.setMovies(movies);
         });
 
         viewModel.getTopRatedMovies().observe(getViewLifecycleOwner(), movies -> {
-            if (movies != null) {
-                topRatedAdapter.setMovies(movies);
-            }
+            if (movies != null) topRatedAdapter.setMovies(movies);
         });
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             binding.swipeRefreshHome.setRefreshing(false);
-            binding.layoutShimmer.setVisibility(
+            binding.layoutShimmer.getRoot().setVisibility(
                     isLoading ? View.VISIBLE : View.GONE);
         });
 
         viewModel.getIsError().observe(getViewLifecycleOwner(), isError -> {
-            binding.layoutErrorState.setVisibility(
+            binding.layoutErrorState.getRoot().setVisibility(
                     isError ? View.VISIBLE : View.GONE);
-            if (isError) {
-                setupRetryButton();
-            }
+            if (isError) setupRetryButton();
         });
     }
 
@@ -171,16 +157,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRetryButton() {
-        binding.layoutErrorState.findViewById(com.reely.R.id.btnRetry)
+        binding.layoutErrorState.getRoot()
+                .findViewById(com.reely.R.id.btnRetry)
                 .setOnClickListener(v -> {
-                    binding.layoutErrorState.setVisibility(View.GONE);
+                    binding.layoutErrorState.getRoot().setVisibility(View.GONE);
                     loadData();
                 });
     }
 
     private void showError() {
-        binding.layoutErrorState.setVisibility(View.VISIBLE);
-        binding.layoutShimmer.setVisibility(View.GONE);
+        binding.layoutErrorState.getRoot().setVisibility(View.VISIBLE);
+        binding.layoutShimmer.getRoot().setVisibility(View.GONE);
         setupRetryButton();
     }
 

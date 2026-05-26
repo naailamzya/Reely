@@ -3,7 +3,6 @@ package com.reely.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
@@ -31,11 +30,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         movieId = getIntent().getIntExtra(Constants.EXTRA_MOVIE_ID, -1);
-
-        if (movieId == -1) {
-            finish();
-            return;
-        }
+        if (movieId == -1) { finish(); return; }
 
         setupToolbar();
         setupViewModel();
@@ -61,19 +56,15 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.getIsLoading().observe(this, isLoading -> {
-            binding.progressDetail.setVisibility(
-                    isLoading ? View.VISIBLE : View.GONE);
-        });
+        viewModel.getIsLoading().observe(this, isLoading ->
+                binding.progressDetail.setVisibility(isLoading ? View.VISIBLE : View.GONE));
 
         viewModel.getIsError().observe(this, isError -> {
-            binding.layoutDetailError.setVisibility(
+            binding.layoutDetailError.getRoot().setVisibility(
                     isError ? View.VISIBLE : View.GONE);
         });
 
-        viewModel.getIsInWatchlist().observe(this, isInWatchlist -> {
-            updateWatchlistButton(isInWatchlist);
-        });
+        viewModel.getIsInWatchlist().observe(this, this::updateWatchlistButton);
 
         viewModel.getSnackbarMessage().observe(this, message -> {
             if (message != null && !message.isEmpty()) {
@@ -88,21 +79,20 @@ public class MovieDetailActivity extends AppCompatActivity {
             setupRetryButton();
             return;
         }
-
         binding.progressDetail.setVisibility(View.VISIBLE);
         viewModel.loadMovieDetail(movieId);
     }
 
     private void setupRetryButton() {
-        binding.layoutDetailError.findViewById(R.id.btnRetry)
+        binding.layoutDetailError.getRoot()
+                .findViewById(R.id.btnRetry)
                 .setOnClickListener(v -> {
-                    binding.layoutDetailError.setVisibility(View.GONE);
+                    binding.layoutDetailError.getRoot().setVisibility(View.GONE);
                     loadMovieDetail();
                 });
     }
 
     private void populateUI(MovieDetail detail) {
-
         Glide.with(this)
                 .load(detail.getFullBackdropUrl(Constants.IMAGE_SIZE_W780))
                 .transition(DrawableTransitionOptions.withCrossFade(400))
@@ -130,16 +120,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         binding.collapsingToolbar.setTitle(detail.getTitle());
-
         populateGenreChips(detail);
 
-        binding.btnAddWatchlist.setOnClickListener(v ->
-                viewModel.toggleWatchlist(detail));
+        binding.btnAddWatchlist.setOnClickListener(v -> viewModel.toggleWatchlist(detail));
     }
 
     private void populateGenreChips(MovieDetail detail) {
         binding.layoutGenreChips.removeAllViews();
-
         if (detail.getGenres() == null) return;
 
         for (Genre genre : detail.getGenres()) {
@@ -168,12 +155,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void showContent() {
         binding.layoutDetailContent.setVisibility(View.VISIBLE);
-        binding.layoutDetailError.setVisibility(View.GONE);
+        binding.layoutDetailError.getRoot().setVisibility(View.GONE);
         binding.progressDetail.setVisibility(View.GONE);
     }
 
     private void showError() {
-        binding.layoutDetailError.setVisibility(View.VISIBLE);
+        binding.layoutDetailError.getRoot().setVisibility(View.VISIBLE);
         binding.layoutDetailContent.setVisibility(View.GONE);
         binding.progressDetail.setVisibility(View.GONE);
     }

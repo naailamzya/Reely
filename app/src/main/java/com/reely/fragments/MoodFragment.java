@@ -17,7 +17,6 @@ import com.reely.activities.MovieDetailActivity;
 import com.reely.adapters.MoodAdapter;
 import com.reely.adapters.MovieAdapter;
 import com.reely.databinding.FragmentMoodBinding;
-import com.reely.models.MoodItem;
 import com.reely.utils.MoodMapper;
 import com.reely.utils.NetworkUtils;
 import com.reely.viewmodel.MoodViewModel;
@@ -55,19 +54,16 @@ public class MoodFragment extends Fragment {
     }
 
     private void setupRecyclerViews() {
-        moodAdapter = new MoodAdapter((mood, position) -> {
-            viewModel.setSelectedMood(mood.getKey());
-        });
+        moodAdapter = new MoodAdapter((mood, position) ->
+                viewModel.setSelectedMood(mood.getKey()));
         binding.rvMoodSelector.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvMoodSelector.setAdapter(moodAdapter);
 
         moodMoviesAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvMoodMovies.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvMoodMovies.setAdapter(moodMoviesAdapter);
     }
 
@@ -75,15 +71,11 @@ public class MoodFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(MoodViewModel.class);
 
         viewModel.getMoodList().observe(getViewLifecycleOwner(), moods -> {
-            if (moods != null) {
-                moodAdapter.setMoods(moods);
-            }
+            if (moods != null) moodAdapter.setMoods(moods);
         });
 
         viewModel.getSelectedMoodKey().observe(getViewLifecycleOwner(), moodKey -> {
-            if (moodKey != null) {
-                updateMoodAtmosphere(moodKey);
-            }
+            if (moodKey != null) updateMoodAtmosphere(moodKey);
         });
 
         viewModel.getMoodMovies().observe(getViewLifecycleOwner(), movies -> {
@@ -94,19 +86,14 @@ public class MoodFragment extends Fragment {
         });
 
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            binding.progressMood.setVisibility(
-                    isLoading ? View.VISIBLE : View.GONE);
-            if (isLoading) {
-                binding.rvMoodMovies.setVisibility(View.GONE);
-            }
+            binding.progressMood.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            if (isLoading) binding.rvMoodMovies.setVisibility(View.GONE);
         });
 
         viewModel.getIsError().observe(getViewLifecycleOwner(), isError -> {
-            binding.layoutMoodError.setVisibility(
+            binding.layoutMoodError.getRoot().setVisibility(
                     isError ? View.VISIBLE : View.GONE);
-            if (isError) {
-                setupRetryButton();
-            }
+            if (isError) setupRetryButton();
         });
     }
 
@@ -117,7 +104,6 @@ public class MoodFragment extends Fragment {
                 MoodMapper.getGradientEndColor(moodKey));
 
         animateGradientBackground(newStart, newEnd);
-
         updateQuoteWithFade(moodKey);
 
         int accentColor = ContextCompat.getColor(requireContext(),
@@ -128,7 +114,6 @@ public class MoodFragment extends Fragment {
     private void animateGradientBackground(int newStart, int newEnd) {
         ValueAnimator startColorAnim = ValueAnimator.ofObject(
                 new ArgbEvaluator(), currentGradientStart, newStart);
-
         ValueAnimator endColorAnim = ValueAnimator.ofObject(
                 new ArgbEvaluator(), currentGradientEnd, newEnd);
 
@@ -138,11 +123,9 @@ public class MoodFragment extends Fragment {
         startColorAnim.addUpdateListener(animation -> {
             int animatedStart = (int) animation.getAnimatedValue();
             int animatedEnd = (int) endColorAnim.getAnimatedValue();
-
             GradientDrawable gradient = new GradientDrawable(
                     GradientDrawable.Orientation.TL_BR,
-                    new int[]{animatedStart, animatedEnd}
-            );
+                    new int[]{animatedStart, animatedEnd});
             gradient.setCornerRadius(0f);
             binding.viewMoodGradient.setBackground(gradient);
         });
@@ -161,18 +144,16 @@ public class MoodFragment extends Fragment {
                 .withEndAction(() -> {
                     String quote = getString(MoodMapper.getQuoteResId(moodKey));
                     binding.tvMoodQuote.setText(quote);
-                    binding.tvMoodQuote.animate()
-                            .alpha(1f)
-                            .setDuration(300)
-                            .start();
+                    binding.tvMoodQuote.animate().alpha(1f).setDuration(300).start();
                 }).start();
     }
 
     private void setupRetryButton() {
-        binding.layoutMoodError.findViewById(com.reely.R.id.btnRetry)
+        binding.layoutMoodError.getRoot()
+                .findViewById(com.reely.R.id.btnRetry)
                 .setOnClickListener(v -> {
                     if (NetworkUtils.isNotConnected(requireContext())) return;
-                    binding.layoutMoodError.setVisibility(View.GONE);
+                    binding.layoutMoodError.getRoot().setVisibility(View.GONE);
                     viewModel.retry();
                 });
     }
