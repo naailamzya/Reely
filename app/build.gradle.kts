@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // TMDB API Key
-        buildConfigField("String", "TMDB_API_KEY", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MzU3YTY3ZGIzOTVhZmY2NDZmMWE5MmQ2YTVhMTk3ZiIsIm5iZiI6MTc2NzY2NDgxOS4yMjU5OTk4LCJzdWIiOiI2OTVjNmNiMzhjODMwNTJjYWI2NGI4YzQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.HUAWbUKgyIve9Q411SY5BABWrs8a3Ioeb--WmqcAM_A\"")
+        buildConfigField("String", "TMDB_API_KEY", "\"4357a67db395aff646f1a92d6a5a197f\"")
         buildConfigField("String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/3/\"")
         buildConfigField("String", "TMDB_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/\"")
     }
