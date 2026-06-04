@@ -1,6 +1,5 @@
 package com.reely.fragments;
 
-import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -57,13 +56,15 @@ public class MoodFragment extends Fragment {
         moodAdapter = new MoodAdapter((mood, position) ->
                 viewModel.setSelectedMood(mood.getKey()));
         binding.rvMoodSelector.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvMoodSelector.setAdapter(moodAdapter);
 
         moodMoviesAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvMoodMovies.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvMoodMovies.setAdapter(moodMoviesAdapter);
     }
 
@@ -112,29 +113,41 @@ public class MoodFragment extends Fragment {
     }
 
     private void animateGradientBackground(int newStart, int newEnd) {
-        ValueAnimator startColorAnim = ValueAnimator.ofObject(
-                new ArgbEvaluator(), currentGradientStart, newStart);
-        ValueAnimator endColorAnim = ValueAnimator.ofObject(
-                new ArgbEvaluator(), currentGradientEnd, newEnd);
+        // ✅ FIX: gunakan array untuk share state antar 2 animator
+        // sebelumnya crash karena endColorAnim.getAnimatedValue() null
+        // saat startColorAnim listener pertama kali dipanggil
+        final int[] animatedColors = {currentGradientStart, currentGradientEnd};
 
-        startColorAnim.setDuration(600);
-        endColorAnim.setDuration(600);
-
-        startColorAnim.addUpdateListener(animation -> {
-            int animatedStart = (int) animation.getAnimatedValue();
-            int animatedEnd = (int) endColorAnim.getAnimatedValue();
-            GradientDrawable gradient = new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{animatedStart, animatedEnd});
-            gradient.setCornerRadius(0f);
-            binding.viewMoodGradient.setBackground(gradient);
+        // Animator start color — pakai ofArgb() agar tidak null
+        ValueAnimator startAnim = ValueAnimator.ofArgb(currentGradientStart, newStart);
+        startAnim.setDuration(600);
+        startAnim.addUpdateListener(animation -> {
+            animatedColors[0] = (int) animation.getAnimatedValue();
+            applyGradient(animatedColors[0], animatedColors[1]);
         });
 
-        startColorAnim.start();
-        endColorAnim.start();
+        // Animator end color
+        ValueAnimator endAnim = ValueAnimator.ofArgb(currentGradientEnd, newEnd);
+        endAnim.setDuration(600);
+        endAnim.addUpdateListener(animation -> {
+            animatedColors[1] = (int) animation.getAnimatedValue();
+            applyGradient(animatedColors[0], animatedColors[1]);
+        });
+
+        startAnim.start();
+        endAnim.start();
 
         currentGradientStart = newStart;
         currentGradientEnd = newEnd;
+    }
+
+    private void applyGradient(int startColor, int endColor) {
+        if (binding == null) return;
+        GradientDrawable gradient = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{startColor, endColor});
+        gradient.setCornerRadius(0f);
+        binding.viewMoodGradient.setBackground(gradient);
     }
 
     private void updateQuoteWithFade(String moodKey) {
@@ -142,6 +155,7 @@ public class MoodFragment extends Fragment {
                 .alpha(0f)
                 .setDuration(200)
                 .withEndAction(() -> {
+                    if (binding == null) return;
                     String quote = getString(MoodMapper.getQuoteResId(moodKey));
                     binding.tvMoodQuote.setText(quote);
                     binding.tvMoodQuote.animate().alpha(1f).setDuration(300).start();
