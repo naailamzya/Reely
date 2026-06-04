@@ -1,7 +1,35 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Reely" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ✅ Taruh file ini di: res/values-night/themes.xml
+    Ini override theme saat system dark mode aktif
+    ATAU saat AppCompatDelegate.MODE_NIGHT_YES diset
+-->
+<resources>
+
+    <!-- Saat dark mode: pakai Night Cinema -->
+    <style name="Theme.Reely.NightCinema" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/night_accent_primary</item>
+        <item name="colorOnPrimary">@color/night_bg_primary</item>
+        <item name="colorSecondary">@color/night_accent_teal</item>
+        <item name="colorOnSecondary">@color/night_bg_primary</item>
+        <item name="android:colorBackground">@color/night_bg_primary</item>
+        <item name="colorSurface">@color/night_bg_card</item>
+        <item name="colorOnBackground">@color/night_text_primary</item>
+        <item name="colorOnSurface">@color/night_text_primary</item>
+        <item name="android:statusBarColor">@color/night_bg_primary</item>
+        <item name="android:navigationBarColor">@color/night_nav_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/night_bg_primary</item>
+        <item name="android:textColorPrimary">@color/night_text_primary</item>
+        <item name="android:textColorSecondary">@color/night_text_secondary</item>
+        <item name="android:textColorHint">@color/night_text_hint</item>
     </style>
+
+    <style name="Theme.Reely.Splash" parent="Theme.Reely.NightCinema">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/night_bg_primary</item>
+        <item name="android:statusBarColor">@color/night_bg_primary</item>
+        <item name="android:navigationBarColor">@color/night_bg_primary</item>
+    </style>
+
 </resources>
