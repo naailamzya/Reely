@@ -14,14 +14,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/night_bg_primary">
 
-            <!-- ══════════════════════════════════════ -->
-            <!--   HERO BANNER                         -->
-            <!-- ══════════════════════════════════════ -->
+            <!-- HERO BANNER — clean, no overlay -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="340dp">
+                android:layout_height="280dp"
+                android:background="@color/night_bg_primary">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHeroBanner"
@@ -29,22 +29,15 @@
                     android:layout_height="match_parent"
                     android:overScrollMode="never" />
 
-                <!-- Bottom gradient overlay on hero -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/bg_hero_gradient_overlay" />
-
-                <!-- ✅ FIX: paddingTop supaya tidak ketimpa status bar -->
+                <!-- Greeting di atas backdrop -->
                 <LinearLayout
                     android:id="@+id/layoutGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_margin="20dp"
-                    android:layout_gravity="top|start"
-                    android:paddingTop="32dp">
+                    android:paddingStart="20dp"
+                    android:paddingTop="44dp"
+                    android:layout_gravity="top|start">
 
                     <TextView
                         android:id="@+id/tvGreeting"
@@ -52,7 +45,11 @@
                         android:layout_height="wrap_content"
                         android:text="Good Evening,"
                         android:textSize="13sp"
-                        android:textColor="@color/night_text_secondary" />
+                        android:textColor="#CCFFFFFF"
+                        android:shadowColor="#99000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="4" />
 
                     <TextView
                         android:id="@+id/tvUsername"
@@ -60,20 +57,23 @@
                         android:layout_height="wrap_content"
                         android:text="naila"
                         android:textSize="22sp"
-                        android:textColor="@color/night_text_primary"
-                        android:fontFamily="sans-serif-medium" />
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="sans-serif-medium"
+                        android:shadowColor="#99000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="6" />
 
                 </LinearLayout>
 
             </FrameLayout>
 
-            <!-- ══════════════════════════════════════ -->
-            <!--   CONTENT SECTIONS                    -->
-            <!-- ══════════════════════════════════════ -->
+            <!-- CONTENT SECTIONS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@color/night_bg_primary"
                 android:paddingBottom="80dp">
 
                 <!-- Error state -->
@@ -88,7 +88,7 @@
                     layout="@layout/layout_shimmer_home"
                     android:visibility="gone" />
 
-                <!-- ── Now Playing ── -->
+                <!-- Now Playing -->
                 <LinearLayout
                     android:id="@+id/sectionNowPlaying"
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                         android:overScrollMode="never" />
                 </LinearLayout>
 
-                <!-- ── Coming Soon ── -->
+                <!-- Coming Soon -->
                 <LinearLayout
                     android:id="@+id/sectionUpcoming"
                     android:layout_width="match_parent"
@@ -174,7 +174,7 @@
                         android:overScrollMode="never" />
                 </LinearLayout>
 
-                <!-- ── Trending ── -->
+                <!-- Trending -->
                 <LinearLayout
                     android:id="@+id/sectionTrending"
                     android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                         android:overScrollMode="never" />
                 </LinearLayout>
 
-                <!-- ── Top Rated ── -->
+                <!-- Top Rated -->
                 <LinearLayout
                     android:id="@+id/sectionTopRated"
                     android:layout_width="match_parent"
