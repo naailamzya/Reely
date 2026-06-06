@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefreshHome"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/night_bg_primary">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/night_bg_primary">
+        android:background="@color/night_bg_primary"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,19 +19,24 @@
             android:orientation="vertical"
             android:background="@color/night_bg_primary">
 
-            <!-- HERO BANNER — clean, no overlay -->
+            <!-- HERO BANNER -->
+            <!-- ✅ background sama persis dengan konten bawah = tidak ada garis -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
-                android:background="@color/night_bg_primary">
+                android:background="@color/night_bg_primary"
+                android:foreground="@null">
 
+                <!-- ✅ background eksplisit supaya tidak ada warna default -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHeroBanner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode="never" />
+                    android:background="@color/night_bg_primary"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false" />
 
-                <!-- Greeting di atas backdrop -->
+                <!-- Greeting -->
                 <LinearLayout
                     android:id="@+id/layoutGreeting"
                     android:layout_width="wrap_content"
@@ -46,10 +53,10 @@
                         android:text="Good Evening,"
                         android:textSize="13sp"
                         android:textColor="#CCFFFFFF"
-                        android:shadowColor="#99000000"
-                        android:shadowDx="1"
+                        android:shadowColor="#BB000000"
+                        android:shadowDx="0"
                         android:shadowDy="1"
-                        android:shadowRadius="4" />
+                        android:shadowRadius="6" />
 
                     <TextView
                         android:id="@+id/tvUsername"
@@ -59,16 +66,16 @@
                         android:textSize="22sp"
                         android:textColor="#FFFFFF"
                         android:fontFamily="sans-serif-medium"
-                        android:shadowColor="#99000000"
-                        android:shadowDx="1"
+                        android:shadowColor="#BB000000"
+                        android:shadowDx="0"
                         android:shadowDy="1"
-                        android:shadowRadius="6" />
+                        android:shadowRadius="8" />
 
                 </LinearLayout>
 
             </FrameLayout>
 
-            <!-- CONTENT SECTIONS -->
+            <!-- ✅ KONTEN — margin 0, background sama, tidak ada divider -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,13 +83,11 @@
                 android:background="@color/night_bg_primary"
                 android:paddingBottom="80dp">
 
-                <!-- Error state -->
                 <include
                     android:id="@+id/layoutErrorState"
                     layout="@layout/layout_error_state"
                     android:visibility="gone" />
 
-                <!-- Loading shimmer -->
                 <include
                     android:id="@+id/layoutShimmer"
                     layout="@layout/layout_shimmer_home"

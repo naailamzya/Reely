@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/night_bg_primary">
 
+    <!-- Full bleed backdrop -->
     <ImageView
         android:id="@+id/ivHeroBackdrop"
         android:layout_width="match_parent"
@@ -14,17 +16,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <!-- Dark scrim atas supaya greeting terbaca -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/scrim_medium" />
+        android:layout_height="100dp"
+        android:background="#66000000"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/bg_hero_gradient_overlay"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+    <!-- IN CINEMAS NOW label -->
     <TextView
         android:id="@+id/tvHeroLabel"
         android:layout_width="wrap_content"
@@ -38,10 +37,11 @@
         android:paddingVertical="4dp"
         android:background="@drawable/bg_hero_label_badge"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tvHeroTitle" />
 
+    <!-- Movie title -->
     <TextView
         android:id="@+id/tvHeroTitle"
         android:layout_width="0dp"
@@ -52,12 +52,17 @@
         android:fontFamily="sans-serif-light"
         android:maxLines="2"
         android:ellipsize="end"
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="8"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/layoutHeroMeta" />
 
+    <!-- Meta row -->
     <LinearLayout
         android:id="@+id/layoutHeroMeta"
         android:layout_width="wrap_content"
@@ -65,7 +70,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
