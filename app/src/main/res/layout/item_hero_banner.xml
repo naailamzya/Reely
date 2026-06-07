@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ✅ Root TIDAK punya background — biarkan transparent -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/night_bg_primary">
+    android:layout_height="match_parent">
 
-    <!-- Full bleed backdrop -->
+    <!-- Full bleed backdrop image -->
     <ImageView
         android:id="@+id/ivHeroBackdrop"
         android:layout_width="match_parent"
@@ -15,13 +15,6 @@
         android:contentDescription="@string/content_description_backdrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-    <!-- Dark scrim atas supaya greeting terbaca -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#66000000"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- IN CINEMAS NOW label -->
     <TextView
@@ -37,7 +30,7 @@
         android:paddingVertical="4dp"
         android:background="@drawable/bg_hero_label_badge"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tvHeroTitle" />
 
@@ -47,8 +40,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Movie Title"
-        android:textSize="26sp"
-        android:textColor="@color/night_text_primary"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-light"
         android:maxLines="2"
         android:ellipsize="end"
@@ -57,7 +50,7 @@
         android:shadowDy="1"
         android:shadowRadius="8"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/layoutHeroMeta" />
@@ -70,7 +63,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -81,7 +74,9 @@
             android:text="★ 8.5"
             android:textSize="13sp"
             android:textColor="@color/rating_star"
-            android:fontFamily="sans-serif-medium" />
+            android:fontFamily="sans-serif-medium"
+            android:shadowColor="#99000000"
+            android:shadowRadius="4" />
 
         <View
             android:layout_width="4dp"
@@ -95,7 +90,9 @@
             android:layout_height="wrap_content"
             android:text="2024"
             android:textSize="13sp"
-            android:textColor="@color/night_text_secondary" />
+            android:textColor="#CCFFFFFF"
+            android:shadowColor="#99000000"
+            android:shadowRadius="4" />
 
     </LinearLayout>
 

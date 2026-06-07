@@ -10,8 +10,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/night_bg_primary"
-        android:fillViewport="true">
+        android:background="@color/night_bg_primary">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,30 +19,27 @@
             android:background="@color/night_bg_primary">
 
             <!-- HERO BANNER -->
-            <!-- ✅ background sama persis dengan konten bawah = tidak ada garis -->
+            <!-- ✅ height wrap_content, tidak ada background berbeda -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:background="@color/night_bg_primary"
-                android:foreground="@null">
+                android:layout_height="300dp">
 
-                <!-- ✅ background eksplisit supaya tidak ada warna default -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHeroBanner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/night_bg_primary"
                     android:overScrollMode="never"
                     android:nestedScrollingEnabled="false" />
 
-                <!-- Greeting -->
+                <!-- ✅ Greeting FLOATING - tidak ada background, teks shadow saja -->
                 <LinearLayout
                     android:id="@+id/layoutGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingStart="20dp"
-                    android:paddingTop="44dp"
+                    android:paddingTop="8dp"
+                    android:background="@null"
                     android:layout_gravity="top|start">
 
                     <TextView
@@ -75,7 +71,7 @@
 
             </FrameLayout>
 
-            <!-- ✅ KONTEN — margin 0, background sama, tidak ada divider -->
+            <!-- ✅ KONTEN: langsung tanpa margin, background sama -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsetsController;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +43,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // ✅ FIX: Apply status bar inset ke greeting padding
+        // supaya greeting tidak ketimpa status bar
+        ViewCompat.setOnApplyWindowInsetsListener(binding.layoutGreeting, (v, insets) -> {
+            int statusBarHeight = insets.getInsets(
+                    WindowInsetsCompat.Type.statusBars()).top;
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    statusBarHeight + 8,
+                    v.getPaddingRight(),
+                    v.getPaddingBottom()
+            );
+            return insets;
+        });
+
         setupGreeting();
         setupRecyclerViews();
         setupViewModel();
@@ -69,31 +87,36 @@ public class HomeFragment extends Fragment {
         heroAdapter = new HeroAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvHeroBanner.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvHeroBanner.setAdapter(heroAdapter);
 
         nowPlayingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvNowPlaying.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvNowPlaying.setAdapter(nowPlayingAdapter);
 
         upcomingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvUpcoming.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvUpcoming.setAdapter(upcomingAdapter);
 
         trendingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvTrending.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvTrending.setAdapter(trendingAdapter);
 
         topRatedAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvTopRated.setLayoutManager(
-                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopRated.setAdapter(topRatedAdapter);
     }
 
@@ -137,7 +160,6 @@ public class HomeFragment extends Fragment {
                 com.reely.R.color.night_accent_primary);
         binding.swipeRefreshHome.setProgressBackgroundColorSchemeResource(
                 com.reely.R.color.night_bg_card);
-
         binding.swipeRefreshHome.setOnRefreshListener(() -> {
             if (NetworkUtils.isNotConnected(requireContext())) {
                 binding.swipeRefreshHome.setRefreshing(false);
