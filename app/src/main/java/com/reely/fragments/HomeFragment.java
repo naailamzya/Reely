@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsetsController;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -12,12 +11,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.reely.activities.AllMoviesActivity;
+import com.reely.activities.MovieDetailActivity;
 import com.reely.adapters.HeroAdapter;
 import com.reely.adapters.MovieAdapter;
-import com.reely.activities.MovieDetailActivity;
 import com.reely.databinding.FragmentHomeBinding;
 import com.reely.utils.NetworkUtils;
 import com.reely.utils.SessionManager;
+import com.reely.viewmodel.AllMoviesViewModel;
 import com.reely.viewmodel.HomeViewModel;
 import java.util.Calendar;
 
@@ -44,17 +45,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // ✅ FIX: Apply status bar inset ke greeting padding
-        // supaya greeting tidak ketimpa status bar
+        // Apply status bar inset ke greeting
         ViewCompat.setOnApplyWindowInsetsListener(binding.layoutGreeting, (v, insets) -> {
-            int statusBarHeight = insets.getInsets(
-                    WindowInsetsCompat.Type.statusBars()).top;
-            v.setPadding(
-                    v.getPaddingLeft(),
-                    statusBarHeight + 8,
-                    v.getPaddingRight(),
-                    v.getPaddingBottom()
-            );
+            int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+            v.setPadding(v.getPaddingLeft(), statusBarHeight + 8,
+                    v.getPaddingRight(), v.getPaddingBottom());
             return insets;
         });
 
@@ -62,23 +57,18 @@ public class HomeFragment extends Fragment {
         setupRecyclerViews();
         setupViewModel();
         setupSwipeRefresh();
+        setupSeeAllButtons(); // ← NEW
         loadData();
     }
 
     private void setupGreeting() {
         SessionManager session = new SessionManager(requireContext());
         String username = session.getUsername();
-
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         String greeting;
-        if (hour < 12) {
-            greeting = getString(com.reely.R.string.home_greeting_morning);
-        } else if (hour < 17) {
-            greeting = getString(com.reely.R.string.home_greeting_afternoon);
-        } else {
-            greeting = getString(com.reely.R.string.home_greeting_evening);
-        }
-
+        if (hour < 12) greeting = getString(com.reely.R.string.home_greeting_morning);
+        else if (hour < 17) greeting = getString(com.reely.R.string.home_greeting_afternoon);
+        else greeting = getString(com.reely.R.string.home_greeting_evening);
         binding.tvGreeting.setText(greeting);
         binding.tvUsername.setText(username.isEmpty() ? "there" : username);
     }
@@ -87,37 +77,58 @@ public class HomeFragment extends Fragment {
         heroAdapter = new HeroAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvHeroBanner.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvHeroBanner.setAdapter(heroAdapter);
 
         nowPlayingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvNowPlaying.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvNowPlaying.setAdapter(nowPlayingAdapter);
 
         upcomingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvUpcoming.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvUpcoming.setAdapter(upcomingAdapter);
 
         trendingAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvTrending.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTrending.setAdapter(trendingAdapter);
 
         topRatedAdapter = new MovieAdapter(movie ->
                 MovieDetailActivity.start(requireContext(), movie.getId()));
         binding.rvTopRated.setLayoutManager(
-                new LinearLayoutManager(requireContext(),
-                        LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopRated.setAdapter(topRatedAdapter);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  SEE ALL BUTTONS — buka AllMoviesActivity
+    // ─────────────────────────────────────────────────────────────
+
+    private void setupSeeAllButtons() {
+        binding.tvSeeAllNowPlaying.setOnClickListener(v ->
+                AllMoviesActivity.start(requireContext(),
+                        AllMoviesViewModel.CATEGORY_NOW_PLAYING,
+                        getString(com.reely.R.string.home_section_nowplaying)));
+
+        binding.tvSeeAllUpcoming.setOnClickListener(v ->
+                AllMoviesActivity.start(requireContext(),
+                        AllMoviesViewModel.CATEGORY_UPCOMING,
+                        getString(com.reely.R.string.home_section_upcoming)));
+
+        binding.tvSeeAllTrending.setOnClickListener(v ->
+                AllMoviesActivity.start(requireContext(),
+                        AllMoviesViewModel.CATEGORY_TRENDING,
+                        getString(com.reely.R.string.home_section_trending)));
+
+        binding.tvSeeAllTopRated.setOnClickListener(v ->
+                AllMoviesActivity.start(requireContext(),
+                        AllMoviesViewModel.CATEGORY_TOP_RATED,
+                        getString(com.reely.R.string.home_section_toprated)));
     }
 
     private void setupViewModel() {

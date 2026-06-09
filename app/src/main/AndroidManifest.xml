@@ -41,6 +41,12 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".activities.MainActivity" />
 
+        <activity
+            android:name=".activities.AllMoviesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activities.MainActivity" />
+
     </application>
 
 </manifest>
