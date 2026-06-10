@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    ✅ Taruh file ini di: res/values-night/themes.xml
-    Ini override theme saat system dark mode aktif
-    ATAU saat AppCompatDelegate.MODE_NIGHT_YES diset
--->
 <resources>
 
-    <!-- Saat dark mode: pakai Night Cinema -->
-    <style name="Theme.Reely.NightCinema" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/night_accent_primary</item>
-        <item name="colorOnPrimary">@color/night_bg_primary</item>
-        <item name="colorSecondary">@color/night_accent_teal</item>
-        <item name="colorOnSecondary">@color/night_bg_primary</item>
-        <item name="android:colorBackground">@color/night_bg_primary</item>
-        <item name="colorSurface">@color/night_bg_card</item>
-        <item name="colorOnBackground">@color/night_text_primary</item>
-        <item name="colorOnSurface">@color/night_text_primary</item>
-        <item name="android:statusBarColor">@color/night_bg_primary</item>
-        <item name="android:navigationBarColor">@color/night_nav_background</item>
+    <!-- ══════════════════════════════════════════════════════╗
+         REELY — MAIN THEME (Night version)
+         Using dynamic color references that point to values-night/colors_theme.xml
+    ══════════════════════════════════════════════════════════ -->
+    <style name="Theme.Reely" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnBackground">@color/color_on_background</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:navigationBarColor">@color/color_nav_background</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowBackground">@color/night_bg_primary</item>
-        <item name="android:textColorPrimary">@color/night_text_primary</item>
-        <item name="android:textColorSecondary">@color/night_text_secondary</item>
-        <item name="android:textColorHint">@color/night_text_hint</item>
+        <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:textColorPrimary">@color/color_on_background</item>
+        <item name="android:textColorSecondary">@color/color_text_secondary</item>
+        <item name="android:textColorHint">@color/color_text_hint</item>
     </style>
 
-    <style name="Theme.Reely.Splash" parent="Theme.Reely.NightCinema">
+    <style name="Theme.Reely.Splash" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@color/night_bg_primary</item>
-        <item name="android:statusBarColor">@color/night_bg_primary</item>
-        <item name="android:navigationBarColor">@color/night_bg_primary</item>
+        <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:navigationBarColor">@color/color_background</item>
     </style>
 
 </resources>

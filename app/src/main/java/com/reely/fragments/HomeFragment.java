@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         setupRecyclerViews();
         setupViewModel();
         setupSwipeRefresh();
-        setupSeeAllButtons(); // ← NEW
+        setupSeeAllButtons();
         loadData();
     }
 
@@ -104,10 +104,6 @@ public class HomeFragment extends Fragment {
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopRated.setAdapter(topRatedAdapter);
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  SEE ALL BUTTONS — buka AllMoviesActivity
-    // ─────────────────────────────────────────────────────────────
 
     private void setupSeeAllButtons() {
         binding.tvSeeAllNowPlaying.setOnClickListener(v ->
@@ -167,10 +163,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupSwipeRefresh() {
+        // Menggunakan warna dinamis
         binding.swipeRefreshHome.setColorSchemeResources(
-                com.reely.R.color.night_accent_primary);
+                com.reely.R.color.color_primary);
         binding.swipeRefreshHome.setProgressBackgroundColorSchemeResource(
-                com.reely.R.color.night_bg_card);
+                com.reely.R.color.color_surface);
         binding.swipeRefreshHome.setOnRefreshListener(() -> {
             if (NetworkUtils.isNotConnected(requireContext())) {
                 binding.swipeRefreshHome.setRefreshing(false);

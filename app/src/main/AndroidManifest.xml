@@ -11,8 +11,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Reely.NightCinema">
+        android:theme="@style/Theme.Reely">
 
+        <!-- Splash -->
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
@@ -24,23 +25,27 @@
             </intent-filter>
         </activity>
 
+        <!-- Login -->
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Main -->
         <activity
             android:name=".activities.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- Movie Detail -->
         <activity
             android:name=".activities.MovieDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:parentActivityName=".activities.MainActivity" />
 
+        <!-- All Movies (See All) -->
         <activity
             android:name=".activities.AllMoviesActivity"
             android:exported="false"

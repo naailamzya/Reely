@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/night_bg_primary">
+    android:background="@color/color_background">
 
     <View
         android:id="@+id/viewGradientBg"
@@ -38,7 +38,7 @@
             android:text="REELY"
             android:textSize="42sp"
             android:letterSpacing="0.3"
-            android:textColor="@color/night_text_primary"
+            android:textColor="@color/color_on_background"
             android:fontFamily="sans-serif-thin"
             android:layout_marginTop="8dp" />
 
@@ -49,7 +49,7 @@
             android:text="@string/splash_tagline"
             android:textSize="13sp"
             android:letterSpacing="0.15"
-            android:textColor="@color/night_text_secondary"
+            android:textColor="@color/color_text_secondary"
             android:layout_marginTop="8dp" />
 
     </LinearLayout>
@@ -59,7 +59,7 @@
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/night_accent_primary"
+        android:indeterminateTint="@color/color_primary"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

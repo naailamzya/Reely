@@ -7,41 +7,43 @@ import androidx.appcompat.app.AppCompatDelegate;
 /**
  * REELY — ThemeManager (FIXED)
  *
- * Fix: AppCompatDelegate.setDefaultNightMode() harus dipanggil
- * SEBELUM Activity onCreate. Memanggil recreate() saja tidak
- * cukup kalau theme belum di-set ke AppCompatDelegate.
+ * Root cause sebelumnya:
+ * AndroidManifest menggunakan Theme.Reely.NightCinema yang hardcoded dark,
+ * sehingga AppCompatDelegate tidak bisa override ke light.
  *
- * Solusi: simpan ke SharedPrefs → set AppCompatDelegate →
- * Activity akan recreate dengan theme baru.
+ * Fix:
+ * - Theme di Manifest diganti ke Theme.Reely (DayNight-aware)
+ * - AppCompatDelegate.setDefaultNightMode() sekarang bekerja karena
+ *   parent theme adalah DayNight, bukan Dark fixed
+ * - applyTheme() dipanggil di ReelyApp.onCreate() sebelum Activity apapun dibuat
  */
 public class ThemeManager {
 
     private ThemeManager() {}
 
     /**
-     * Panggil di ReelyApp.onCreate() — restore theme saat app launch.
+     * Panggil di ReelyApp.onCreate() untuk restore theme saat launch.
      */
     public static void applyTheme(Context context) {
         String savedTheme = getSavedTheme(context);
-        applyThemeMode(savedTheme);
+        applyMode(savedTheme);
     }
 
     /**
      * Switch ke Night Cinema (dark).
-     * ✅ FIX: set AppCompatDelegate dulu, baru recreate Activity.
+     * setDefaultNightMode() harus dipanggil SEBELUM Activity recreate().
      */
     public static void setNightCinema(Context context) {
         saveTheme(context, Constants.THEME_NIGHT);
-        applyThemeMode(Constants.THEME_NIGHT);
+        applyMode(Constants.THEME_NIGHT);
     }
 
     /**
      * Switch ke Soft Cinema (light).
-     * ✅ FIX: set AppCompatDelegate dulu, baru recreate Activity.
      */
     public static void setSoftCinema(Context context) {
         saveTheme(context, Constants.THEME_SOFT);
-        applyThemeMode(Constants.THEME_SOFT);
+        applyMode(Constants.THEME_SOFT);
     }
 
     public static boolean isNightCinema(Context context) {
@@ -54,19 +56,24 @@ public class ThemeManager {
         return prefs.getString(Constants.KEY_THEME, Constants.THEME_NIGHT);
     }
 
-    // ── Private helpers ───────────────────────────────────────────
+    // ── Private ───────────────────────────────────────────────────
 
-    private static void applyThemeMode(String theme) {
+    private static void applyMode(String theme) {
         if (Constants.THEME_SOFT.equals(theme)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            // Light mode
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            // Dark mode (default)
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
         }
     }
 
     private static void saveTheme(Context context, String theme) {
-        SharedPreferences prefs = context.getSharedPreferences(
-                Constants.PREF_NAME, Context.MODE_PRIVATE);
-        prefs.edit().putString(Constants.KEY_THEME, theme).apply();
+        context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .putString(Constants.KEY_THEME, theme)
+                .apply();
     }
 }

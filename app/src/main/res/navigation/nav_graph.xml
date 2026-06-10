@@ -11,11 +11,12 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
+    <!-- ✅ GANTI: moodFragment → discoverFragment -->
     <fragment
-        android:id="@+id/moodFragment"
-        android:name="com.reely.fragments.MoodFragment"
-        android:label="Mood"
-        tools:layout="@layout/fragment_mood" />
+        android:id="@+id/discoverFragment"
+        android:name="com.reely.fragments.DiscoverFragment"
+        android:label="Discover"
+        tools:layout="@layout/fragment_discover" />
 
     <fragment
         android:id="@+id/watchlistFragment"

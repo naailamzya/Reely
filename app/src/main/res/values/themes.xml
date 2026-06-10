@@ -1,75 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- ══════════════════════════════════════════════════════╗
-         REELY — NIGHT CINEMA MODE (Dark, Default)
-    ══════════════════════════════════════════════════════════ -->
-    <style name="Theme.Reely.NightCinema" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/night_accent_primary</item>
-        <item name="colorOnPrimary">@color/night_bg_primary</item>
-        <item name="colorSecondary">@color/night_accent_teal</item>
-        <item name="colorOnSecondary">@color/night_bg_primary</item>
-        <item name="android:colorBackground">@color/night_bg_primary</item>
-        <item name="colorSurface">@color/night_bg_card</item>
-        <item name="colorOnBackground">@color/night_text_primary</item>
-        <item name="colorOnSurface">@color/night_text_primary</item>
-        <item name="android:statusBarColor">@color/night_bg_primary</item>
-        <item name="android:navigationBarColor">@color/night_nav_background</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowBackground">@color/night_bg_primary</item>
-        <item name="android:textColorPrimary">@color/night_text_primary</item>
-        <item name="android:textColorSecondary">@color/night_text_secondary</item>
-        <item name="android:textColorHint">@color/night_text_hint</item>
+    <!--
+        ✅ FIX: Gunakan DayNight sebagai parent supaya
+        AppCompatDelegate.setDefaultNightMode() bisa bekerja.
+
+        Theme.Material3.DayNight akan otomatis switch antara
+        Light dan Dark berdasarkan MODE yang di-set di AppCompatDelegate.
+    -->
+
+    <!-- BASE THEME — DayNight aware -->
+    <style name="Theme.Reely" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnBackground">@color/color_on_background</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:textColorPrimary">@color/color_on_background</item>
+        <item name="android:textColorSecondary">@color/color_text_secondary</item>
+        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:navigationBarColor">@color/color_background</item>
     </style>
 
-    <!-- ══════════════════════════════════════════════════════╗
-         REELY — SOFT CINEMA MODE (Light)
-         ✅ FIX: parent harus DayNight supaya benar-benar light
-    ══════════════════════════════════════════════════════════ -->
-    <style name="Theme.Reely.SoftCinema" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/soft_accent_primary</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">@color/soft_accent_teal</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="android:colorBackground">@color/soft_bg_primary</item>
-        <item name="colorSurface">@color/soft_bg_card</item>
-        <item name="colorOnBackground">@color/soft_text_primary</item>
-        <item name="colorOnSurface">@color/soft_text_primary</item>
-        <item name="android:statusBarColor">@color/soft_bg_primary</item>
-        <item name="android:navigationBarColor">@color/soft_nav_background</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/soft_bg_primary</item>
-        <item name="android:textColorPrimary">@color/soft_text_primary</item>
-        <item name="android:textColorSecondary">@color/soft_text_secondary</item>
-        <item name="android:textColorHint">@color/soft_text_hint</item>
-    </style>
+    <!-- Night Cinema alias — untuk backward compat -->
+    <style name="Theme.Reely.NightCinema" parent="Theme.Reely" />
+
+    <!-- Soft Cinema alias -->
+    <style name="Theme.Reely.SoftCinema" parent="Theme.Reely" />
 
     <!-- Splash -->
-    <style name="Theme.Reely.Splash" parent="Theme.Reely.NightCinema">
+    <style name="Theme.Reely.Splash" parent="Theme.Reely">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@color/night_bg_primary</item>
-        <item name="android:statusBarColor">@color/night_bg_primary</item>
-        <item name="android:navigationBarColor">@color/night_bg_primary</item>
     </style>
 
     <!-- Card styles -->
     <style name="Widget.Reely.CardView.Night" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardBackgroundColor">@color/night_bg_card</item>
+        <item name="cardBackgroundColor">@color/color_surface</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/night_stroke</item>
+        <item name="strokeColor">@color/color_stroke</item>
         <item name="strokeWidth">1dp</item>
     </style>
 
     <style name="Widget.Reely.CardView.Soft" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardBackgroundColor">@color/soft_bg_card</item>
+        <item name="cardBackgroundColor">@color/color_surface</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">4dp</item>
-        <item name="strokeColor">@color/soft_stroke</item>
+        <item name="strokeColor">@color/color_stroke</item>
         <item name="strokeWidth">1dp</item>
     </style>
 
-    <!-- Text Appearance styles -->
     <style name="TextAppearance.Reely.HeroTitle" parent="TextAppearance.Material3.DisplaySmall">
         <item name="android:textSize">32sp</item>
         <item name="android:letterSpacing">0.05</item>
@@ -77,13 +61,6 @@
 
     <style name="TextAppearance.Reely.SectionLabel" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:textSize">14sp</item>
-        <item name="android:letterSpacing">0.1</item>
-    </style>
-
-    <style name="TextAppearance.Reely.CardTitle" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textSize">13sp</item>
-        <item name="android:maxLines">2</item>
-        <item name="android:ellipsize">end</item>
     </style>
 
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#E8B86D</color>
+    <color name="color_on_primary">#0A0E1A</color>
+    <color name="color_secondary">#2DD4BF</color>
+    <color name="color_on_secondary">#0A0E1A</color>
+    <color name="color_background">#0A0E1A</color>
+    <color name="color_surface">#141927</color>
+    <color name="color_on_background">#F1F5F9</color>
+    <color name="color_on_surface">#F1F5F9</color>
+    <color name="color_text_secondary">#94A3B8</color>
+    <color name="color_text_hint">#475569</color>
+    <color name="color_stroke">#1E293B</color>
+    <color name="color_nav_background">#0F1420</color>
+    <color name="color_nav_selected">#E8B86D</color>
+    <color name="color_nav_unselected">#475569</color>
+    <color name="color_accent">#E8B86D</color>
+
+    <!-- Gradient & Specific UI Colors -->
+    <color name="color_gradient_start">#1A1035</color>
+    <color name="color_gradient_end">#0A0E1A</color>
+    <color name="color_hero_fade">#0A0E1A</color>
+    <color name="color_surface_variant">#141927</color>
+    <color name="color_primary_alpha_20">#33E8B86D</color>
+</resources>

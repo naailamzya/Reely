@@ -33,13 +33,6 @@ public final class Constants {
     public static final int GENRE_FAMILY          = 10751;
     public static final int GENRE_ANIMATION       = 16;
 
-    public static final String MOOD_COMFORT       = "comfort";
-    public static final String MOOD_RAINY         = "rainy";
-    public static final String MOOD_MIND_BLOWN    = "mind_blown";
-    public static final String MOOD_HORROR        = "horror";
-    public static final String MOOD_ADRENALINE    = "adrenaline";
-    public static final String MOOD_HEARTBROKEN   = "heartbroken";
-
     public static final int DEFAULT_PAGE          = 1;
     public static final String DEFAULT_LANGUAGE   = "en-US";
 

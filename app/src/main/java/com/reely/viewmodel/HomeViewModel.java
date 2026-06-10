@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import com.reely.models.Movie;
 import com.reely.repository.MovieRepository;
+import com.reely.utils.Constants;
 import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
@@ -39,14 +40,14 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void loadNowPlaying() {
-        repository.getNowPlayingMovies().observeForever(movies -> {
+        repository.getNowPlayingMovies(Constants.DEFAULT_PAGE).observeForever(movies -> {
             nowPlayingMovies.setValue(movies);
             checkLoadingComplete();
         });
     }
 
     private void loadUpcoming() {
-        repository.getUpcomingMovies().observeForever(movies -> {
+        repository.getUpcomingMovies(Constants.DEFAULT_PAGE).observeForever(movies -> {
             upcomingMovies.setValue(movies);
             checkLoadingComplete();
         });
@@ -60,7 +61,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     private void loadTopRated() {
-        repository.getTopRatedMovies().observeForever(movies -> {
+        repository.getTopRatedMovies(Constants.DEFAULT_PAGE).observeForever(movies -> {
             topRatedMovies.setValue(movies);
             checkLoadingComplete();
         });

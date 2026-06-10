@@ -4,23 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/night_bg_primary">
+    android:background="@color/color_background">
 
     <!-- Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/night_bg_primary"
+        android:background="@color/color_background"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/night_bg_primary"
+            android:background="@color/color_background"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:navigationIconTint="@color/night_text_primary" />
+            app:navigationIconTint="@color/color_on_background" />
 
         <!-- Category title -->
         <TextView
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Now Playing"
             android:textSize="22sp"
-            android:textColor="@color/night_text_primary"
+            android:textColor="@color/color_on_background"
             android:fontFamily="sans-serif-light"
             android:paddingHorizontal="20dp"
             android:paddingBottom="16dp" />
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="16dp"
-                android:indeterminateTint="@color/night_accent_primary"
+                android:indeterminateTint="@color/color_primary"
                 android:visibility="gone" />
 
             <!-- Load More button -->
@@ -81,10 +81,10 @@
                 android:layout_marginBottom="16dp"
                 android:text="Load More"
                 android:textSize="13sp"
-                android:textColor="@color/night_bg_primary"
+                android:textColor="@color/color_on_primary"
                 android:paddingHorizontal="32dp"
                 android:visibility="gone"
-                app:backgroundTint="@color/night_accent_primary"
+                app:backgroundTint="@color/color_primary"
                 app:cornerRadius="100dp" />
 
             <!-- End of list message -->
@@ -95,7 +95,7 @@
                 android:layout_gravity="center"
                 android:text="You've seen it all ✨"
                 android:textSize="13sp"
-                android:textColor="@color/night_text_hint"
+                android:textColor="@color/color_text_hint"
                 android:layout_marginVertical="24dp"
                 android:visibility="gone" />
 

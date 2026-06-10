@@ -17,11 +17,8 @@ public class MovieResponse {
     @SerializedName("total_results")
     private int totalResults;
 
-    public int getPage() { return page; }
-
-    public List<Movie> getResults() { return results; }
-
-    public int getTotalPages() { return totalPages; }
-
-    public int getTotalResults() { return totalResults; }
+    public int getPage()             { return page; }
+    public List<Movie> getResults()  { return results; }
+    public int getTotalPages()       { return totalPages; }
+    public int getTotalResults()     { return totalResults; }
 }

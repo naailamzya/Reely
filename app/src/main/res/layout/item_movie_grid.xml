@@ -8,8 +8,8 @@
     android:layout_margin="6dp"
     app:cardCornerRadius="14dp"
     app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/night_bg_card"
-    app:strokeColor="@color/night_stroke"
+    app:cardBackgroundColor="@color/color_surface"
+    app:strokeColor="@color/color_stroke"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -40,7 +40,7 @@
                 android:paddingVertical="3dp"
                 android:text="8.5"
                 android:textSize="11sp"
-                android:textColor="@color/night_bg_primary"
+                android:textColor="@color/color_background"
                 android:fontFamily="sans-serif-medium"
                 android:background="@color/rating_star" />
 
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="Movie Title"
                 android:textSize="13sp"
-                android:textColor="@color/night_text_primary"
+                android:textColor="@color/color_on_surface"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="2"
                 android:ellipsize="end" />
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="2024"
                 android:textSize="11sp"
-                android:textColor="@color/night_text_hint"
+                android:textColor="@color/color_text_hint"
                 android:layout_marginTop="2dp" />
 
         </LinearLayout>

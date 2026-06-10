@@ -4,21 +4,22 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_nav_home"
-        android:title="@string/nav_home" />
+        android:title="Home" />
 
+    <!-- ✅ GANTI: moodFragment → discoverFragment -->
     <item
-        android:id="@+id/moodFragment"
+        android:id="@+id/discoverFragment"
         android:icon="@drawable/ic_nav_mood"
-        android:title="@string/nav_mood" />
+        android:title="Discover" />
 
     <item
         android:id="@+id/watchlistFragment"
         android:icon="@drawable/ic_nav_watchlist"
-        android:title="@string/nav_watchlist" />
+        android:title="Watchlist" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_nav_profile"
-        android:title="@string/nav_profile" />
+        android:title="Profile" />
 
 </menu>

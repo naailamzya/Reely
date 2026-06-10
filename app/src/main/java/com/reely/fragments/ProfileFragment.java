@@ -76,29 +76,29 @@ public class ProfileFragment extends Fragment {
         int stroke2dp = (int) (2 * density);
         int stroke1dp = (int) (1 * density);
 
+        // Menggunakan warna dinamis (DayNight-aware)
+        int activeColor = requireContext().getColor(com.reely.R.color.color_primary);
+        int inactiveStroke = requireContext().getColor(com.reely.R.color.color_stroke);
+
         if (isNight) {
             // Night selected
             binding.cardNightCinema.setStrokeWidth(stroke2dp);
-            binding.cardNightCinema.setStrokeColor(
-                    requireContext().getColor(com.reely.R.color.night_accent_primary));
+            binding.cardNightCinema.setStrokeColor(activeColor);
             binding.ivNightSelected.setVisibility(View.VISIBLE);
 
             // Soft deselected
             binding.cardSoftCinema.setStrokeWidth(stroke1dp);
-            binding.cardSoftCinema.setStrokeColor(
-                    requireContext().getColor(com.reely.R.color.night_stroke));
+            binding.cardSoftCinema.setStrokeColor(inactiveStroke);
             binding.ivSoftSelected.setVisibility(View.GONE);
         } else {
             // Soft selected
             binding.cardSoftCinema.setStrokeWidth(stroke2dp);
-            binding.cardSoftCinema.setStrokeColor(
-                    requireContext().getColor(com.reely.R.color.soft_accent_primary));
+            binding.cardSoftCinema.setStrokeColor(activeColor);
             binding.ivSoftSelected.setVisibility(View.VISIBLE);
 
             // Night deselected
             binding.cardNightCinema.setStrokeWidth(stroke1dp);
-            binding.cardNightCinema.setStrokeColor(
-                    requireContext().getColor(com.reely.R.color.night_stroke));
+            binding.cardNightCinema.setStrokeColor(inactiveStroke);
             binding.ivNightSelected.setVisibility(View.GONE);
         }
     }
