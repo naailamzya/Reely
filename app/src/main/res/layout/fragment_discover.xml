@@ -1,275 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background">
 
-    <!-- ── Header ── -->
-    <LinearLayout
-        android:id="@+id/layoutDiscoverHeader"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarDiscover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
         android:background="@color/color_background"
-        app:layout_constraintTop_toTopOf="parent">
+        app:elevation="0dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discover"
-            android:textSize="28sp"
-            android:textColor="@color/color_on_background"
-            android:fontFamily="sans-serif-light" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Find your next favorite film"
-            android:textSize="13sp"
-            android:textColor="@color/color_text_secondary"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Search bar -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSearch"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search movies..."
-            app:boxStrokeColor="@color/color_stroke"
-            app:boxStrokeWidthFocused="2dp"
-            app:boxBackgroundColor="@color/color_surface"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:hintTextColor="@color/color_text_hint"
-            app:startIconDrawable="@drawable/ic_refresh"
-            app:endIconMode="clear_text">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
+            <LinearLayout
+                android:id="@+id/layoutDiscoverHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_on_surface"
-                android:inputType="text"
-                android:imeOptions="actionSearch"
-                android:singleLine="true" />
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="60dp"
+                android:paddingBottom="24dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Discover"
+                    android:textSize="32sp"
+                    android:textColor="@color/color_on_background"
+                    android:fontFamily="@font/poppins"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Explore movies from all around the world"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_text_secondary"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp" />
 
-    <!-- ── Filter Row ── -->
-    <LinearLayout
-        android:id="@+id/layoutFilters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/color_background"
-        android:paddingTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/layoutDiscoverHeader">
+                <!-- Modern Search Bar -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/color_surface"
+                    app:strokeWidth="0dp">
 
-        <!-- Genre chips -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:paddingHorizontal="16dp"
-            android:clipToPadding="false">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="20dp">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupGenre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:singleSelection="true"
-                app:selectionRequired="true" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_search"
+                            app:tint="@color/color_text_hint" />
 
-        </HorizontalScrollView>
+                        <EditText
+                            android:id="@+id/etSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:background="@null"
+                            android:hint="Search titles, actors, directors..."
+                            android:textSize="15sp"
+                            android:textColor="@color/color_on_surface"
+                            android:textColorHint="@color/color_text_hint"
+                            android:fontFamily="@font/poppins"
+                            android:inputType="text"
+                            android:imeOptions="actionSearch"
+                            android:singleLine="true" />
 
-        <!-- Sort row -->
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <!-- Persistent Filters Area -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="4dp"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:background="@color/color_background"
+            android:paddingBottom="8dp">
 
-            <TextView
-                android:layout_width="0dp"
+            <HorizontalScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/tvResultCount"
-                android:text="All Movies"
-                android:textSize="13sp"
-                android:textColor="@color/color_text_secondary" />
+                android:scrollbars="none"
+                android:clipToPadding="false"
+                android:paddingHorizontal="20dp">
 
-            <!-- Sort by: Popularity -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSortPopularity"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="🔥 Popular"
-                android:textSize="11sp"
-                android:layout_marginEnd="6dp"
-                app:backgroundTint="@color/color_primary"
-                app:cornerRadius="100dp" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"
+                    app:singleSelection="true"
+                    app:selectionRequired="true" />
+            </HorizontalScrollView>
 
-            <!-- Sort by: Rating -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSortRating"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="⭐ Rating"
-                android:textSize="11sp"
-                app:strokeColor="@color/color_stroke"
-                app:cornerRadius="100dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:gravity="center_vertical">
 
+                <TextView
+                    android:id="@+id/tvResultCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="All Movies"
+                    android:textSize="13sp"
+                    android:textColor="@color/color_text_secondary"
+                    android:fontFamily="@font/poppins" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSortPopularity"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popular"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSortRating"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top Rated"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins"
+                    app:cornerRadius="16dp" />
+
+            </LinearLayout>
         </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_stroke"
-            android:layout_marginTop="4dp" />
-
-    </LinearLayout>
-
-    <!-- ── Results / States ── -->
-
-    <!-- Loading first page -->
-    <ProgressBar
-        android:id="@+id/progressDiscover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/color_primary"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/layoutFilters"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Error state -->
-    <include
-        android:id="@+id/layoutDiscoverError"
-        layout="@layout/layout_error_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/layoutFilters"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <!-- Empty state -->
-    <LinearLayout
-        android:id="@+id/layoutEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/layoutFilters"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🎬"
-            android:textSize="48sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No movies found"
-            android:textSize="16sp"
-            android:textColor="@color/color_on_background"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="12dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Try a different genre or search term"
-            android:textSize="13sp"
-            android:textColor="@color/color_text_secondary"
-            android:layout_marginTop="6dp" />
-
-    </LinearLayout>
-
-    <!-- Movie grid + Load More -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollDiscover"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/layoutFilters"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="80dp">
+            android:paddingBottom="100dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDiscover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp"
-                android:paddingTop="8dp"
+                android:paddingHorizontal="10dp"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
-                android:nestedScrollingEnabled="false" />
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_movie_grid" />
 
-            <!-- Loading more -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLoadMore"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="Load More"
+                android:visibility="gone"
+                android:fontFamily="@font/poppins"
+                app:cornerRadius="24dp" />
+
             <ProgressBar
                 android:id="@+id/progressLoadMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginVertical="12dp"
-                android:indeterminateTint="@color/color_primary"
+                android:layout_marginTop="16dp"
                 android:visibility="gone" />
-
-            <!-- Load More button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLoadMore"
-                android:layout_width="wrap_content"
-                android:layout_height="44dp"
-                android:layout_gravity="center"
-                android:layout_marginVertical="8dp"
-                android:text="Load More"
-                android:textSize="13sp"
-                android:textColor="@color/color_on_primary"
-                android:paddingHorizontal="32dp"
-                android:visibility="gone"
-                app:backgroundTint="@color/color_primary"
-                app:cornerRadius="100dp" />
 
             <TextView
                 android:id="@+id/tvEndOfList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="You've seen it all ✨"
-                android:textSize="13sp"
+                android:layout_marginTop="32dp"
+                android:text="You've reached the end ✨"
                 android:textColor="@color/color_text_hint"
-                android:layout_marginVertical="20dp"
+                android:textSize="13sp"
+                android:fontFamily="@font/poppins"
                 android:visibility="gone" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/progressDiscover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="40dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔍"
+            android:textSize="64sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="No movies found"
+            android:textColor="@color/color_on_background"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Try searching for another title or filter"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layoutDiscoverError"
+        layout="@layout/layout_error_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

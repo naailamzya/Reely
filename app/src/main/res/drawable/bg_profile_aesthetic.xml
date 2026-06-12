@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base very light orange glow from top left -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#1AB5541C"
+                android:centerColor="#05B5541C"
+                android:endColor="@color/transparent"
+                android:angle="135"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- Another soft glow from top right to make it more aesthetic -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#0DB5541C"
+                android:endColor="@color/transparent"
+                android:angle="225"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

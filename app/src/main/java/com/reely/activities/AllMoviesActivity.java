@@ -5,30 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import com.reely.R;
 import com.reely.adapters.MovieGridAdapter;
 import com.reely.databinding.ActivityAllMoviesBinding;
 import com.reely.utils.NetworkUtils;
 import com.reely.viewmodel.AllMoviesViewModel;
 
-/**
- * REELY — AllMoviesActivity
- *
- * Layar "See All" untuk setiap kategori:
- * - Now Playing in Cinemas
- * - Coming Soon
- * - Trending This Week
- * - Top Rated All Time
- *
- * Fitur:
- * - Grid 2 kolom
- * - Pagination dengan "Load More" button
- * - Error + retry handling
- */
 public class AllMoviesActivity extends AppCompatActivity {
 
-    // Intent keys
     public static final String EXTRA_CATEGORY = "extra_category";
     public static final String EXTRA_TITLE    = "extra_title";
 
@@ -42,7 +30,12 @@ public class AllMoviesActivity extends AppCompatActivity {
         binding = ActivityAllMoviesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Ambil data dari Intent
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout, (v, insets) -> {
+            int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+            v.setPadding(0, statusBarHeight, 0, 0);
+            return insets;
+        });
+
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         String title    = getIntent().getStringExtra(EXTRA_TITLE);
 
@@ -53,10 +46,6 @@ public class AllMoviesActivity extends AppCompatActivity {
         setupViewModel(category);
         setupLoadMore();
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  SETUP
-    // ─────────────────────────────────────────────────────────────
 
     private void setupToolbar(String title) {
         setSupportActionBar(binding.toolbar);
@@ -72,7 +61,6 @@ public class AllMoviesActivity extends AppCompatActivity {
         adapter = new MovieGridAdapter(movie ->
                 MovieDetailActivity.start(this, movie.getId()));
 
-        // 2 kolom grid
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         binding.rvAllMovies.setLayoutManager(gridManager);
         binding.rvAllMovies.setAdapter(adapter);
@@ -83,25 +71,20 @@ public class AllMoviesActivity extends AppCompatActivity {
     private void setupViewModel(String category) {
         viewModel = new ViewModelProvider(this).get(AllMoviesViewModel.class);
 
-        // ── Observe page baru → append ke adapter ────────────────
         viewModel.getNewPage().observe(this, movies -> {
             if (movies != null && !movies.isEmpty()) {
                 if (viewModel.getCurrentPage() == 1) {
-                    // Page pertama: set (replace)
                     adapter.setMovies(movies);
                 } else {
-                    // Page selanjutnya: append
                     adapter.appendMovies(movies);
                 }
             }
         });
 
-        // ── Loading halaman pertama ───────────────────────────────
         viewModel.getIsLoading().observe(this, isLoading -> {
             binding.rvAllMovies.setVisibility(isLoading ? View.GONE : View.VISIBLE);
         });
 
-        // ── Loading halaman berikutnya ────────────────────────────
         viewModel.getIsLoadingMore().observe(this, isLoadingMore -> {
             binding.progressLoadMore.setVisibility(
                     isLoadingMore ? View.VISIBLE : View.GONE);
@@ -109,7 +92,6 @@ public class AllMoviesActivity extends AppCompatActivity {
                     isLoadingMore ? View.GONE : View.VISIBLE);
         });
 
-        // ── Error ─────────────────────────────────────────────────
         viewModel.getIsError().observe(this, isError -> {
             binding.layoutError.getRoot().setVisibility(
                     isError ? View.VISIBLE : View.GONE);
@@ -124,7 +106,6 @@ public class AllMoviesActivity extends AppCompatActivity {
             }
         });
 
-        // ── Has More → show/hide Load More & End label ───────────
         viewModel.getHasMore().observe(this, hasMore -> {
             binding.btnLoadMore.setVisibility(
                     hasMore ? View.VISIBLE : View.GONE);
@@ -132,7 +113,6 @@ public class AllMoviesActivity extends AppCompatActivity {
                     hasMore ? View.GONE : View.VISIBLE);
         });
 
-        // Mulai load
         if (NetworkUtils.isNotConnected(this)) {
             binding.layoutError.getRoot().setVisibility(View.VISIBLE);
         } else {
@@ -147,18 +127,6 @@ public class AllMoviesActivity extends AppCompatActivity {
         });
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  STATIC HELPER — buka dari Fragment
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Buka AllMoviesActivity dari mana saja.
-     *
-     * Contoh:
-     *   AllMoviesActivity.start(requireContext(),
-     *       AllMoviesViewModel.CATEGORY_NOW_PLAYING,
-     *       "Now Playing in Cinemas");
-     */
     public static void start(Context context, String category, String title) {
         Intent intent = new Intent(context, AllMoviesActivity.class);
         intent.putExtra(EXTRA_CATEGORY, category);

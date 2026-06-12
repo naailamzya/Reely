@@ -1,251 +1,323 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background"
-    android:overScrollMode="never">
+    android:background="@color/color_background">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="80dp">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="48dp"
-            android:paddingBottom="32dp"
-            android:background="@drawable/bg_profile_header">
+            android:paddingBottom="@dimen/spacing_giant">
 
+            <!-- Header Section -->
             <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_avatar_circle" />
+                    android:layout_height="240dp"
+                    android:background="@drawable/bg_profile_header" />
 
-                <TextView
-                    android:id="@+id/tvAvatarInitial"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="N"
-                    android:textSize="32sp"
-                    android:textColor="@color/color_on_background"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="50dp">
 
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="8dp"
+                        app:strokeWidth="3dp"
+                        app:strokeColor="@color/color_primary">
+
+                        <TextView
+                            android:id="@+id/tvAvatarInitial"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_surface"
+                            android:fontFamily="@font/poppins"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:text="U"
+                            android:textColor="@color/color_on_surface"
+                            android:textSize="40sp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/tvProfileUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold"
+                        android:text="@string/hint_username"
+                        android:textColor="@color/color_on_background"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="40dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/profile_user_status"
+                        android:textColor="@color/color_text_secondary"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/tvProfileUsername"
-                android:layout_width="wrap_content"
+            <!-- Stats Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User"
-                android:textSize="20sp"
-                android:textColor="@color/color_on_background"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="16dp" />
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-30dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/color_surface">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvWatchlistCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textColor="@color/color_primary"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_stats_watchlist"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@color/color_text_secondary" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Settings Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_tmdb_credit"
+                android:text="@string/profile_section_preferences"
                 android:textSize="12sp"
-                android:textColor="@color/color_text_hint"
-                android:layout_marginTop="4dp" />
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_primary"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/color_surface"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/color_stroke">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Night Cinema Item -->
+                    <LinearLayout
+                        android:id="@+id/cardNightCinema"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_nav_mood"
+                            app:tint="@color/color_primary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_theme_night"
+                            android:textSize="16sp"
+                            android:textColor="@color/color_on_surface"
+                            android:fontFamily="@font/poppins" />
+
+                        <ImageView
+                            android:id="@+id/ivNightSelected"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="@color/color_primary"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_stroke"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <!-- Soft Cinema Item -->
+                    <LinearLayout
+                        android:id="@+id/cardSoftCinema"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_nav_mood"
+                            app:tint="@color/color_secondary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_theme_soft"
+                            android:textSize="16sp"
+                            android:textColor="@color/color_on_surface"
+                            android:fontFamily="@font/poppins" />
+
+                        <ImageView
+                            android:id="@+id/ivSoftSelected"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="@color/color_primary"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- About Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_section_about"
+                android:textSize="12sp"
+                android:letterSpacing="0.1"
+                android:textColor="@color/color_primary"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/color_surface"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/color_stroke">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_person"
+                            app:tint="@color/color_text_secondary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/profile_version_label"
+                            android:textSize="16sp"
+                            android:textColor="@color/color_on_surface"
+                            android:fontFamily="@font/poppins" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/profile_version"
+                            android:textSize="14sp"
+                            android:textColor="@color/color_text_secondary"
+                            android:fontFamily="@font/poppins" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Logout Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/profile_logout"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textColor="@color/error_red"
+                app:icon="@drawable/ic_logout"
+                app:iconTint="@color/error_red"
+                app:iconGravity="textStart"
+                app:strokeColor="@color/error_red"
+                app:strokeWidth="1dp"
+                app:cornerRadius="16dp"
+                app:backgroundTint="@color/transparent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold" />
+
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_theme_section"
-            android:textSize="11sp"
-            android:letterSpacing="0.15"
-            android:textAllCaps="true"
-            android:textColor="@color/color_text_hint"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="28dp"
-            android:paddingBottom="12dp" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardNightCinema"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_primary"
-            app:strokeWidth="2dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🌙  Night Cinema Mode"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_on_surface"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dark navy · Gold glow · Neo-noir"
-                        android:textSize="12sp"
-                        android:textColor="@color/color_text_secondary"
-                        android:layout_marginTop="2dp" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/ivNightSelected"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_check_circle"
-                    app:tint="@color/color_primary" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardSoftCinema"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_stroke"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="☀️  Soft Cinema Mode"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_on_surface"
-                        android:fontFamily="sans-serif-medium" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Warm cream · Soft shadows · Minimal"
-                        android:textSize="12sp"
-                        android:textColor="@color/color_text_secondary"
-                        android:layout_marginTop="2dp" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/ivSoftSelected"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_check_circle"
-                    android:visibility="gone"
-                    app:tint="@color/color_primary" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ABOUT"
-            android:textSize="11sp"
-            android:letterSpacing="0.15"
-            android:textAllCaps="true"
-            android:textColor="@color/color_text_hint"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="12dp" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_stroke"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/profile_about"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_on_surface" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/profile_version"
-                    android:textSize="13sp"
-                    android:textColor="@color/color_text_secondary" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/profile_logout"
-            android:textSize="14sp"
-            android:textColor="@color/error_red"
-            app:backgroundTint="@color/color_surface"
-            app:strokeColor="@color/error_red"
-            app:strokeWidth="1dp"
-            app:cornerRadius="14dp"
-            app:icon="@drawable/ic_logout"
-            app:iconTint="@color/error_red" />
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -45,10 +45,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Apply status bar inset ke greeting
+        // ✅ FIX: Turunkan posisi greeting sedikit lebih bawah
         ViewCompat.setOnApplyWindowInsetsListener(binding.layoutGreeting, (v, insets) -> {
             int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-            v.setPadding(v.getPaddingLeft(), statusBarHeight + 8,
+            v.setPadding(v.getPaddingLeft(), statusBarHeight + 32, // Ditambah menjadi 32
                     v.getPaddingRight(), v.getPaddingBottom());
             return insets;
         });

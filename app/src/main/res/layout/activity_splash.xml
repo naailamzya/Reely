@@ -39,7 +39,8 @@
             android:textSize="42sp"
             android:letterSpacing="0.3"
             android:textColor="@color/color_on_background"
-            android:fontFamily="sans-serif-thin"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold"
             android:layout_marginTop="8dp" />
 
         <TextView
@@ -50,6 +51,7 @@
             android:textSize="13sp"
             android:letterSpacing="0.15"
             android:textColor="@color/color_text_secondary"
+            android:fontFamily="@font/poppins"
             android:layout_marginTop="8dp" />
 
     </LinearLayout>

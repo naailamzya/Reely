@@ -6,10 +6,9 @@
         android:icon="@drawable/ic_nav_home"
         android:title="Home" />
 
-    <!-- ✅ GANTI: moodFragment → discoverFragment -->
     <item
         android:id="@+id/discoverFragment"
-        android:icon="@drawable/ic_nav_mood"
+        android:icon="@drawable/ic_nav_discover"
         android:title="Discover" />
 
     <item

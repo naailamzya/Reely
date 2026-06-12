@@ -60,15 +60,25 @@
     <string name="watchlist_empty_title">Nothing saved yet</string>
     <string name="watchlist_empty_subtitle">Movies you save will appear here</string>
 
+    <string name="discover_empty_title">No movies found</string>
+    <string name="discover_empty_subtitle">Try searching for something else</string>
+
     <string name="profile_title">Profile</string>
     <string name="profile_theme_section">Appearance</string>
-    <string name="profile_theme_night">Night Cinema Mode</string>
-    <string name="profile_theme_soft">Soft Cinema Mode</string>
+    <string name="profile_theme_night">NIGHT MODE</string>
+    <string name="profile_theme_night_desc">Modern dark theme</string>
+    <string name="profile_theme_soft">LIGHT MODE</string>
+    <string name="profile_theme_soft_desc">Warm and cozy theme</string>
     <string name="profile_about">About REELY</string>
-    <string name="profile_version">Version 1.0</string>
+    <string name="profile_version_label">App Version</string>
+    <string name="profile_version">1.0.0</string>
     <string name="profile_logout">Sign Out</string>
     <string name="profile_logout_confirm">Are you sure you want to sign out?</string>
     <string name="profile_tmdb_credit">Powered by TMDB API</string>
+    <string name="profile_user_status">Movie Enthusiast</string>
+    <string name="profile_stats_watchlist">Watchlist</string>
+    <string name="profile_section_preferences">PREFERENCES</string>
+    <string name="profile_section_about">ABOUT</string>
 
     <string name="btn_retry">Try Again</string>
     <string name="btn_ok">OK</string>

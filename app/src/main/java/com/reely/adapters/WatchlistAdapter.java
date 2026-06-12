@@ -58,7 +58,8 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
         if (position >= 0 && position < movies.size()) {
             movies.remove(position);
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position, movies.size());
+            // Perbaiki: update posisi dari position hingga akhir
+            notifyItemRangeChanged(position, movies.size() - position);
         }
     }
 
@@ -67,8 +68,8 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
     }
 
     class WatchlistViewHolder extends RecyclerView.ViewHolder {
-
         private final ItemWatchlistMovieBinding binding;
+        private int currentPosition = RecyclerView.NO_POSITION;
 
         WatchlistViewHolder(ItemWatchlistMovieBinding binding) {
             super(binding.getRoot());
@@ -76,12 +77,11 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
         }
 
         void bind(Movie movie, int position) {
+            this.currentPosition = position;
             Context context = binding.getRoot().getContext();
 
             binding.tvWatchlistTitle.setText(movie.getTitle());
-
             binding.tvWatchlistRating.setText("★ " + movie.getFormattedRating());
-
             binding.tvWatchlistYear.setText(movie.getReleaseYear());
 
             if (movie.getOverview() != null && !movie.getOverview().isEmpty()) {
@@ -91,7 +91,6 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
             }
 
             String posterUrl = movie.getFullPosterUrl(Constants.IMAGE_SIZE_W185);
-
             Glide.with(context)
                     .load(posterUrl)
                     .transition(DrawableTransitionOptions.withCrossFade(300))
@@ -107,8 +106,8 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
             });
 
             binding.btnRemoveWatchlist.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onRemoveClick(movie, getAdapterPosition());
+                if (listener != null && currentPosition != RecyclerView.NO_POSITION) {
+                    listener.onRemoveClick(movie, currentPosition);
                 }
             });
         }

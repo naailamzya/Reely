@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ✅ Root TIDAK punya background — biarkan transparent -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,88 +11,82 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/content_description_backdrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:contentDescription="@string/content_description_backdrop" />
 
-    <!-- IN CINEMAS NOW label -->
-    <TextView
-        android:id="@+id/tvHeroLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/home_hero_label"
-        android:textSize="10sp"
-        android:letterSpacing="0.2"
-        android:textAllCaps="true"
-        android:textColor="@color/color_primary"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="4dp"
-        android:background="@drawable/bg_hero_label_badge"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvHeroTitle" />
-
-    <!-- Movie title -->
-    <TextView
-        android:id="@+id/tvHeroTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Movie Title"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="sans-serif-light"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:shadowColor="#99000000"
-        android:shadowDx="0"
-        android:shadowDy="1"
-        android:shadowRadius="8"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/layoutHeroMeta" />
-
-    <!-- Meta row -->
+    <!-- Content Container -->
     <LinearLayout
-        android:id="@+id/layoutHeroMeta"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="14dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/screen_margin"
+        android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/tvHeroRating"
+            android:id="@+id/tvHeroLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="★ 8.5"
-            android:textSize="13sp"
-            android:textColor="@color/rating_star"
-            android:fontFamily="sans-serif-medium"
-            android:shadowColor="#99000000"
-            android:shadowRadius="4" />
-
-        <View
-            android:layout_width="4dp"
-            android:layout_height="4dp"
-            android:background="@drawable/shape_dot"
-            android:layout_marginHorizontal="8dp" />
+            android:text="@string/home_hero_label"
+            android:textSize="10sp"
+            android:letterSpacing="0.1"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold"
+            android:background="@drawable/bg_hero_label_badge"
+            android:backgroundTint="@color/color_primary"
+            android:layout_marginBottom="12dp" />
 
         <TextView
-            android:id="@+id/tvHeroYear"
+            android:id="@+id/tvHeroTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Movie Title"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:lineSpacingExtra="-4dp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutHeroMeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2024"
-            android:textSize="13sp"
-            android:textColor="#CCFFFFFF"
-            android:shadowColor="#99000000"
-            android:shadowRadius="4" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
+            <TextView
+                android:id="@+id/tvHeroRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="★ 8.5"
+                android:textSize="14sp"
+                android:textColor="@color/rating_star"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/shape_dot"
+                android:backgroundTint="#80FFFFFF"
+                android:layout_marginHorizontal="8dp" />
+
+            <TextView
+                android:id="@+id/tvHeroYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2024"
+                android:textSize="14sp"
+                android:textColor="#B3FFFFFF"
+                android:fontFamily="@font/poppins" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.lifecycle.runtime)
 
     implementation(libs.shimmer)
+    implementation(libs.youtube.player)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

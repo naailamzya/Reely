@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.reely.R;
 import com.reely.activities.LoginActivity;
 import com.reely.databinding.FragmentProfileBinding;
+import com.reely.repository.MovieRepository;
 import com.reely.utils.SessionManager;
 import com.reely.utils.ThemeManager;
 
@@ -18,6 +20,7 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
     private SessionManager sessionManager;
+    private MovieRepository repository;
 
     @Nullable
     @Override
@@ -33,8 +36,10 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(requireContext());
+        repository = MovieRepository.getInstance(requireContext());
 
         setupUserInfo();
+        setupStats();
         setupThemeSelection();
         setupLogout();
     }
@@ -49,16 +54,22 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private void setupStats() {
+        // Ambil jumlah asli dari database watchlist
+        repository.getAllWatchlistMovies(movies -> {
+            if (movies != null) {
+                binding.tvWatchlistCount.setText(String.valueOf(movies.size()));
+            }
+        });
+    }
+
     private void setupThemeSelection() {
-        // Set initial visual state berdasarkan theme yang tersimpan
         boolean isNight = ThemeManager.isNightCinema(requireContext());
         updateThemeUI(isNight);
 
-        // ✅ FIX: set theme dulu via ThemeManager, LALU recreate Activity
         binding.cardNightCinema.setOnClickListener(v -> {
             if (!ThemeManager.isNightCinema(requireContext())) {
                 ThemeManager.setNightCinema(requireContext());
-                // recreate() akan trigger Activity restart dengan theme baru
                 requireActivity().recreate();
             }
         });
@@ -72,34 +83,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateThemeUI(boolean isNight) {
-        float density = getResources().getDisplayMetrics().density;
-        int stroke2dp = (int) (2 * density);
-        int stroke1dp = (int) (1 * density);
-
-        // Menggunakan warna dinamis (DayNight-aware)
-        int activeColor = requireContext().getColor(com.reely.R.color.color_primary);
-        int inactiveStroke = requireContext().getColor(com.reely.R.color.color_stroke);
-
         if (isNight) {
-            // Night selected
-            binding.cardNightCinema.setStrokeWidth(stroke2dp);
-            binding.cardNightCinema.setStrokeColor(activeColor);
             binding.ivNightSelected.setVisibility(View.VISIBLE);
-
-            // Soft deselected
-            binding.cardSoftCinema.setStrokeWidth(stroke1dp);
-            binding.cardSoftCinema.setStrokeColor(inactiveStroke);
             binding.ivSoftSelected.setVisibility(View.GONE);
         } else {
-            // Soft selected
-            binding.cardSoftCinema.setStrokeWidth(stroke2dp);
-            binding.cardSoftCinema.setStrokeColor(activeColor);
-            binding.ivSoftSelected.setVisibility(View.VISIBLE);
-
-            // Night deselected
-            binding.cardNightCinema.setStrokeWidth(stroke1dp);
-            binding.cardNightCinema.setStrokeColor(inactiveStroke);
             binding.ivNightSelected.setVisibility(View.GONE);
+            binding.ivSoftSelected.setVisibility(View.VISIBLE);
         }
     }
 
@@ -108,12 +97,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showLogoutDialog() {
-        new AlertDialog.Builder(requireContext())
-                .setTitle(getString(com.reely.R.string.profile_logout))
-                .setMessage(getString(com.reely.R.string.profile_logout_confirm))
-                .setPositiveButton(getString(com.reely.R.string.btn_yes),
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.profile_logout))
+                .setMessage(getString(R.string.profile_logout_confirm))
+                .setPositiveButton(getString(R.string.btn_yes),
                         (dialog, which) -> performLogout())
-                .setNegativeButton(getString(com.reely.R.string.btn_cancel), null)
+                .setNegativeButton(getString(R.string.btn_cancel), null)
                 .show();
     }
 
@@ -122,8 +111,7 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(requireContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        requireActivity().overridePendingTransition(
-                android.R.anim.fade_in, android.R.anim.fade_out);
+        requireActivity().finish();
     }
 
     @Override

@@ -9,17 +9,6 @@ import com.reely.repository.MovieRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * REELY — AllMoviesViewModel
- *
- * Mengelola pagination untuk halaman "See All".
- * Mendukung kategori: now_playing, upcoming, trending, top_rated
- *
- * Flow:
- *   1. loadPage(1) → set allMovies
- *   2. User tap "Load More" → loadPage(2) → append ke allMovies
- *   3. Ulangi sampai hasMore = false
- */
 public class AllMoviesViewModel extends AndroidViewModel {
 
     public static final String CATEGORY_NOW_PLAYING = "now_playing";
@@ -29,7 +18,6 @@ public class AllMoviesViewModel extends AndroidViewModel {
 
     private final MovieRepository repository;
 
-    // ── LiveData ──────────────────────────────────────────────────
     private final MutableLiveData<List<Movie>> allMovies   = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<List<Movie>> newPage     = new MutableLiveData<>();
     private final MutableLiveData<Boolean>     isLoading   = new MutableLiveData<>(false);
@@ -37,19 +25,14 @@ public class AllMoviesViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean>     isError     = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean>     hasMore     = new MutableLiveData<>(true);
 
-    // ── State ─────────────────────────────────────────────────────
     private String currentCategory = CATEGORY_NOW_PLAYING;
     private int currentPage = 0;
-    private static final int MOVIES_PER_PAGE = 20; // TMDB default
+    private static final int MOVIES_PER_PAGE = 20;
 
     public AllMoviesViewModel(@NonNull Application application) {
         super(application);
         repository = MovieRepository.getInstance(application);
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  INIT — set kategori dan load page pertama
-    // ─────────────────────────────────────────────────────────────
 
     public void init(String category) {
         this.currentCategory = category;
@@ -58,10 +41,6 @@ public class AllMoviesViewModel extends AndroidViewModel {
         hasMore.setValue(true);
         loadNextPage();
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  LOAD NEXT PAGE — dipanggil saat tap "Load More"
-    // ─────────────────────────────────────────────────────────────
 
     public void loadNextPage() {
         Boolean loading = isLoading.getValue();
@@ -85,60 +64,56 @@ public class AllMoviesViewModel extends AndroidViewModel {
     }
 
     private void fetchPage(int page) {
-        MutableLiveData<List<Movie>> source;
+        MovieRepository.RepositoryCallback<List<Movie>> callback = new MovieRepository.RepositoryCallback<List<Movie>>() {
+            @Override
+            public void onResult(List<Movie> movies) {
+                isLoading.setValue(false);
+                isLoadingMore.setValue(false);
+
+                if (movies != null && !movies.isEmpty()) {
+                    currentPage++;
+
+                    List<Movie> current = allMovies.getValue();
+                    if (current == null) current = new ArrayList<>();
+                    current.addAll(movies);
+                    allMovies.setValue(new ArrayList<>(current));
+
+                    newPage.setValue(movies);
+
+                    if (movies.size() < MOVIES_PER_PAGE) {
+                        hasMore.setValue(false);
+                    }
+                } else {
+                    if (currentPage == 0) {
+                        isError.setValue(true);
+                    } else {
+                        hasMore.setValue(false);
+                    }
+                }
+            }
+        };
 
         switch (currentCategory) {
             case CATEGORY_UPCOMING:
-                source = repository.getUpcomingMovies(page);
+                repository.getUpcomingMovies(page, callback);
                 break;
             case CATEGORY_TRENDING:
-                source = repository.getTrendingMovies();
+                repository.getTrendingMovies(callback);
                 break;
             case CATEGORY_TOP_RATED:
-                source = repository.getTopRatedMovies(page);
+                repository.getTopRatedMovies(page, callback);
                 break;
             case CATEGORY_NOW_PLAYING:
             default:
-                source = repository.getNowPlayingMovies(page);
+                repository.getNowPlayingMovies(page, callback);
                 break;
         }
-
-        source.observeForever(movies -> {
-            isLoading.setValue(false);
-            isLoadingMore.setValue(false);
-
-            if (movies != null && !movies.isEmpty()) {
-                currentPage++;
-
-                // Append ke list yang ada
-                List<Movie> current = allMovies.getValue();
-                if (current == null) current = new ArrayList<>();
-                current.addAll(movies);
-                allMovies.setValue(new ArrayList<>(current));
-
-                // Expose page baru untuk append di adapter
-                newPage.setValue(movies);
-
-                // Kalau hasil < 20, berarti sudah halaman terakhir
-                if (movies.size() < MOVIES_PER_PAGE) {
-                    hasMore.setValue(false);
-                }
-            } else {
-                if (currentPage == 0) {
-                    isError.setValue(true);
-                } else {
-                    // Tidak ada data lagi
-                    hasMore.setValue(false);
-                }
-            }
-        });
     }
 
     public void retry() {
         loadNextPage();
     }
 
-    // ── Getters ───────────────────────────────────────────────────
     public MutableLiveData<List<Movie>> getAllMovies()     { return allMovies; }
     public MutableLiveData<List<Movie>> getNewPage()      { return newPage; }
     public MutableLiveData<Boolean>     getIsLoading()    { return isLoading; }

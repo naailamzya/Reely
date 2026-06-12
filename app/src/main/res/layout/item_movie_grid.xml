@@ -1,67 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Grid card - lebih besar dari horizontal card -->
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="0dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
     app:cardBackgroundColor="@color/color_surface"
-    app:strokeColor="@color/color_stroke"
-    app:strokeWidth="1dp">
+    app:strokeWidth="0dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Poster -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="240dp">
 
             <ImageView
                 android:id="@+id/ivGridPoster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/content_description_movie_poster" />
+                android:contentDescription="@string/content_description_movie_poster"
+                android:src="@drawable/ic_placeholder_movie" />
 
-            <!-- Rating badge -->
-            <TextView
-                android:id="@+id/tvGridRating"
+            <!-- Glassmorphism-like Rating Badge -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
-                android:layout_margin="8dp"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="3dp"
-                android:text="8.5"
-                android:textSize="11sp"
-                android:textColor="@color/color_background"
-                android:fontFamily="sans-serif-medium"
-                android:background="@color/rating_star" />
+                android:layout_margin="12dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#CC000000"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⭐"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvGridRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="8.5"
+                        android:textSize="12sp"
+                        android:textColor="@color/night_text_primary"
+                        android:fontFamily="@font/poppins"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Bottom Gradient Overlay for Title readability if needed,
+                 but we put title outside -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_hero_bottom_fade"
+                android:visibility="gone" />
 
         </FrameLayout>
 
-        <!-- Info -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/tvGridTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Movie Title"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textColor="@color/color_on_surface"
-                android:fontFamily="sans-serif-medium"
-                android:maxLines="2"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
+                android:maxLines="1"
                 android:ellipsize="end" />
 
             <TextView
@@ -69,11 +102,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2024"
-                android:textSize="11sp"
-                android:textColor="@color/color_text_hint"
+                android:textSize="12sp"
+                android:textColor="@color/color_text_secondary"
+                android:fontFamily="@font/poppins"
                 android:layout_marginTop="2dp" />
 
         </LinearLayout>
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -9,7 +9,6 @@ import com.reely.repository.MovieRepository;
 import java.util.List;
 
 public class WatchlistViewModel extends AndroidViewModel {
-
     private final MovieRepository repository;
     private final MutableLiveData<List<Movie>> watchlistMovies = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isEmpty = new MutableLiveData<>(false);
@@ -19,17 +18,19 @@ public class WatchlistViewModel extends AndroidViewModel {
         super(application);
         repository = MovieRepository.getInstance(application);
     }
+
     public void loadWatchlist() {
         repository.getAllWatchlistMovies(movies -> {
             watchlistMovies.setValue(movies);
             isEmpty.setValue(movies == null || movies.isEmpty());
         });
     }
+
     public void removeFromWatchlist(int movieId) {
         repository.removeFromWatchlist(movieId, success -> {
             if (success) {
                 toastMessage.setValue("Removed from watchlist");
-                loadWatchlist(); // reload supaya RecyclerView update
+                loadWatchlist(); // reload ulang
             } else {
                 toastMessage.setValue("Failed to remove");
             }
@@ -37,6 +38,6 @@ public class WatchlistViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<Movie>> getWatchlistMovies() { return watchlistMovies; }
-    public MutableLiveData<Boolean>     getIsEmpty()         { return isEmpty; }
-    public MutableLiveData<String>      getToastMessage()    { return toastMessage; }
+    public MutableLiveData<Boolean> getIsEmpty() { return isEmpty; }
+    public MutableLiveData<String> getToastMessage() { return toastMessage; }
 }

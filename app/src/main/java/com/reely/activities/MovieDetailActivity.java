@@ -17,7 +17,6 @@ import com.reely.adapters.CastAdapter;
 import com.reely.databinding.ActivityMovieDetailBinding;
 import com.reely.models.Genre;
 import com.reely.models.MovieDetail;
-import com.reely.models.Video;
 import com.reely.utils.Constants;
 import com.reely.utils.NetworkUtils;
 import com.reely.viewmodel.DetailViewModel;
@@ -27,8 +26,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ActivityMovieDetailBinding binding;
     private DetailViewModel viewModel;
     private CastAdapter castAdapter;
-    private CastAdapter crewAdapter;
     private int movieId;
+    private String currentTrailerKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +41,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         setupToolbar();
         setupRecyclerViews();
         setupViewModel();
+        setupListeners();
         loadData();
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  SETUP
-    // ─────────────────────────────────────────────────────────────
 
     private void setupToolbar() {
         setSupportActionBar(binding.toolbarDetail);
@@ -63,17 +59,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         binding.rvCast.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
         binding.rvCast.setAdapter(castAdapter);
-
-        crewAdapter = new CastAdapter();
-        binding.rvCrew.setLayoutManager(new LinearLayoutManager(
-                this, LinearLayoutManager.HORIZONTAL, false));
-        binding.rvCrew.setAdapter(crewAdapter);
     }
 
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(DetailViewModel.class);
 
-        // ── Detail film ───────────────────────────────────────────
         viewModel.getMovieDetail().observe(this, detail -> {
             if (detail != null) {
                 populateUI(detail);
@@ -81,7 +71,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
-        // ── Cast ──────────────────────────────────────────────────
         viewModel.getCastList().observe(this, cast -> {
             if (cast != null && !cast.isEmpty()) {
                 castAdapter.setCast(cast);
@@ -89,54 +78,68 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
-        // ── Crew ──────────────────────────────────────────────────
-        viewModel.getCrewList().observe(this, crew -> {
-            if (crew != null && !crew.isEmpty()) {
-                crewAdapter.setCast(crew);
-                binding.layoutCrewSection.setVisibility(View.VISIBLE);
-            }
-        });
-
-        // ── Trailer ───────────────────────────────────────────────
         viewModel.getMainTrailer().observe(this, trailer -> {
-            if (trailer != null) {
-                setupTrailer(trailer);
-                binding.layoutTrailerSection.setVisibility(View.VISIBLE);
+            if (trailer != null && trailer.isYouTube()) {
+                currentTrailerKey = trailer.getKey();
+                binding.btnPlayTrailer.setVisibility(View.VISIBLE);
+                binding.btnTrailerAction.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnPlayTrailer.setVisibility(View.GONE);
+                binding.btnTrailerAction.setVisibility(View.GONE);
             }
         });
 
-        // ── Loading ───────────────────────────────────────────────
         viewModel.getIsLoading().observe(this, isLoading ->
-                binding.progressDetail.setVisibility(
-                        isLoading ? View.VISIBLE : View.GONE));
+                binding.progressDetail.setVisibility(isLoading ? View.VISIBLE : View.GONE));
 
-        // ── Error ─────────────────────────────────────────────────
         viewModel.getIsError().observe(this, isError -> {
-            binding.layoutDetailError.getRoot().setVisibility(
-                    isError ? View.VISIBLE : View.GONE);
+            binding.layoutDetailError.getRoot().setVisibility(isError ? View.VISIBLE : View.GONE);
             if (isError) setupRetryButton();
         });
 
-        // ── Watchlist status ──────────────────────────────────────
         viewModel.getIsInWatchlist().observe(this, this::updateWatchlistButton);
 
-        // ── Snackbar ──────────────────────────────────────────────
         viewModel.getSnackbarMsg().observe(this, msg -> {
-            if (msg != null && !msg.isEmpty())
+            if (msg != null && !msg.isEmpty()) {
                 Snackbar.make(binding.getRoot(), msg, Snackbar.LENGTH_SHORT).show();
+            }
         });
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  LOAD
-    // ─────────────────────────────────────────────────────────────
+    private void setupListeners() {
+        // Play Trailer logic
+        View.OnClickListener playTrailerListener = v -> {
+            if (currentTrailerKey != null) {
+                String youtubeUrl = "https://www.youtube.com/watch?v=" + currentTrailerKey;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl));
+                intent.setPackage("com.google.android.youtube");
+                if (intent.resolveActivity(getPackageManager()) == null) {
+                    intent.setPackage(null);
+                }
+                startActivity(intent);
+            }
+        };
+        
+        binding.btnPlayTrailer.setOnClickListener(playTrailerListener);
+        binding.btnTrailerAction.setOnClickListener(playTrailerListener);
+
+        // Watchlist logic
+        binding.btnSmallAddWatchlist.setOnClickListener(v -> {
+            MovieDetail detail = viewModel.getMovieDetail().getValue();
+            if (detail != null) viewModel.toggleWatchlist(detail);
+        });
+        
+        binding.btnAddWatchlist.setOnClickListener(v -> {
+            MovieDetail detail = viewModel.getMovieDetail().getValue();
+            if (detail != null) viewModel.toggleWatchlist(detail);
+        });
+    }
 
     private void loadData() {
         if (NetworkUtils.isNotConnected(this)) {
             showError();
             return;
         }
-        binding.progressDetail.setVisibility(View.VISIBLE);
         viewModel.loadMovieDetail(movieId);
     }
 
@@ -149,13 +152,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 });
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  POPULATE UI
-    // ─────────────────────────────────────────────────────────────
-
     private void populateUI(MovieDetail detail) {
-
-        // Backdrop
         Glide.with(this)
                 .load(detail.getFullBackdropUrl(Constants.IMAGE_SIZE_W780))
                 .transition(DrawableTransitionOptions.withCrossFade(400))
@@ -163,42 +160,28 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(binding.ivDetailBackdrop);
 
-        // Poster
-        Glide.with(this)
-                .load(detail.getFullPosterUrl(Constants.IMAGE_SIZE_W342))
-                .transition(DrawableTransitionOptions.withCrossFade(300))
-                .placeholder(R.drawable.ic_placeholder_movie)
-                .centerCrop()
-                .into(binding.ivDetailPoster);
-
-        // Teks
         binding.tvDetailTitle.setText(detail.getTitle());
         binding.tvDetailRating.setText("★ " + detail.getFormattedRating());
-        binding.tvDetailVoteCount.setText("(" + formatVoteCount(detail.getVoteCount()) + ")");
-        binding.tvDetailReleaseDate.setText("📅 " + detail.getReleaseDate());
-        binding.tvDetailRuntime.setText("⏱ " + detail.getFormattedRuntime());
+        binding.tvDetailReleaseDate.setText(detail.getReleaseDate().split("-")[0]); // Ambil tahun saja agar lebih rapi
+        binding.tvDetailRuntime.setText(detail.getFormattedRuntime());
         binding.tvDetailOverview.setText(detail.getOverview());
-        binding.collapsingToolbar.setTitle(detail.getTitle());
 
-        // Tagline
         if (detail.getTagline() != null && !detail.getTagline().isEmpty()) {
             binding.tvDetailTagline.setText("\"" + detail.getTagline() + "\"");
             binding.tvDetailTagline.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvDetailTagline.setVisibility(View.GONE);
         }
 
-        // Genre chips
         populateGenreChips(detail);
 
-        // Budget + Revenue
         if (detail.getBudget() > 0 || detail.getRevenue() > 0) {
             binding.tvDetailBudget.setText(detail.getFormattedBudget());
             binding.tvDetailRevenue.setText(detail.getFormattedRevenue());
             binding.layoutBudgetRevenue.setVisibility(View.VISIBLE);
+        } else {
+            binding.layoutBudgetRevenue.setVisibility(View.GONE);
         }
-
-        // Watchlist button
-        binding.btnAddWatchlist.setOnClickListener(v ->
-                viewModel.toggleWatchlist(detail));
     }
 
     private void populateGenreChips(MovieDetail detail) {
@@ -219,51 +202,17 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  TRAILER
-    // ─────────────────────────────────────────────────────────────
-
-    private void setupTrailer(Video trailer) {
-        // Load thumbnail YouTube
-        Glide.with(this)
-                .load(trailer.getThumbnailUrl())
-                .transition(DrawableTransitionOptions.withCrossFade(300))
-                .centerCrop()
-                .into(binding.ivTrailerThumbnail);
-
-        // Tap → buka YouTube
-        binding.cardTrailer.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(trailer.getYouTubeUrl()));
-            intent.setPackage("com.google.android.youtube");
-
-            // Coba buka di YouTube app dulu, fallback ke browser
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(trailer.getYouTubeUrl())));
-            }
-        });
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    //  WATCHLIST BUTTON
-    // ─────────────────────────────────────────────────────────────
-
     private void updateWatchlistButton(boolean isInWatchlist) {
         if (isInWatchlist) {
+            binding.btnSmallAddWatchlist.setText("Saved");
+            binding.btnSmallAddWatchlist.setIconResource(R.drawable.ic_bookmark_filled);
             binding.btnAddWatchlist.setText(getString(R.string.detail_remove_watchlist));
-            binding.btnAddWatchlist.setIconResource(R.drawable.ic_bookmark_filled);
         } else {
+            binding.btnSmallAddWatchlist.setText("Save");
+            binding.btnSmallAddWatchlist.setIconResource(R.drawable.ic_bookmark_outline);
             binding.btnAddWatchlist.setText(getString(R.string.detail_add_watchlist));
-            binding.btnAddWatchlist.setIconResource(R.drawable.ic_bookmark_outline);
         }
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  STATE HELPERS
-    // ─────────────────────────────────────────────────────────────
 
     private void showContent() {
         binding.layoutDetailContent.setVisibility(View.VISIBLE);
@@ -277,16 +226,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         binding.progressDetail.setVisibility(View.GONE);
         setupRetryButton();
     }
-
-    private String formatVoteCount(int count) {
-        if (count >= 1_000_000) return String.format("%.1fM", count / 1_000_000f);
-        if (count >= 1_000)     return String.format("%.1fk", count / 1_000f);
-        return String.valueOf(count);
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    //  STATIC HELPER
-    // ─────────────────────────────────────────────────────────────
 
     public static void start(Context context, int movieId) {
         Intent intent = new Intent(context, MovieDetailActivity.class);

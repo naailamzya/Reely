@@ -2,6 +2,8 @@
 <resources>
     <color name="color_primary">#E8B86D</color>
     <color name="color_on_primary">#0A0E1A</color>
+    <color name="color_primary_container">#5C441B</color>
+    <color name="color_on_primary_container">#FFDBCB</color>
     <color name="color_secondary">#2DD4BF</color>
     <color name="color_on_secondary">#0A0E1A</color>
     <color name="color_background">#0A0E1A</color>

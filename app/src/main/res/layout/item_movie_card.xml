@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="140dp"
-    android:layout_height="230dp"
-    android:layout_marginHorizontal="6dp"
+    android:layout_width="@dimen/movie_card_width"
+    android:layout_height="@dimen/movie_card_height"
+    android:layout_marginHorizontal="@dimen/spacing_xs"
     app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/color_surface"
-    app:strokeColor="@color/color_stroke"
-    app:strokeWidth="1dp">
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,26 +16,24 @@
         <ImageView
             android:id="@+id/ivMoviePoster"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/content_description_movie_poster"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/layoutMovieInfo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:contentDescription="@string/content_description_movie_poster" />
 
         <TextView
             android:id="@+id/tvMovieRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:paddingHorizontal="7dp"
-            android:paddingVertical="3dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
             android:text="8.5"
             android:textSize="10sp"
-            android:textColor="@color/color_background"
-            android:fontFamily="sans-serif-medium"
-            android:background="@color/rating_star"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/poppins"
+            android:textStyle="bold"
+            android:background="@drawable/bg_hero_label_badge"
+            android:backgroundTint="#CC000000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -46,23 +42,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="10dp"
-            android:background="@color/color_surface"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:padding="10dp"
+            android:background="#80000000"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/tvMovieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Movie Title"
-                android:textSize="12sp"
-                android:textColor="@color/color_on_surface"
-                android:fontFamily="sans-serif-medium"
-                android:maxLines="2"
+                android:textSize="13sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/poppins"
+                android:textStyle="bold"
+                android:maxLines="1"
                 android:ellipsize="end" />
 
             <TextView
@@ -70,11 +63,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2024"
-                android:textSize="10sp"
-                android:textColor="@color/color_text_hint"
+                android:textSize="11sp"
+                android:textColor="#B3FFFFFF"
+                android:fontFamily="@font/poppins"
                 android:layout_marginTop="2dp" />
 
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

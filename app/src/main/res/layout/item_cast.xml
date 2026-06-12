@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginHorizontal="6dp"
-    android:paddingVertical="4dp">
+    android:layout_marginHorizontal="@dimen/spacing_xs"
+    android:paddingVertical="@dimen/spacing_xs">
 
-    <!-- Profile photo — circle -->
-    <ImageView
+    <!-- Profile photo — diubah ke ShapeableImageView agar bulat sempurna -->
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivCastPhoto"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/cast_avatar_size"
+        android:layout_height="@dimen/cast_avatar_size"
         android:scaleType="centerCrop"
-        android:background="@color/color_surface"
-        android:contentDescription="Cast photo" />
+        android:contentDescription="Cast photo"
+        app:shapeAppearanceOverlay="@style/CircleAppearance" />
 
     <!-- Name -->
     <TextView
@@ -23,13 +24,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Actor Name"
-        android:textSize="11sp"
+        android:textSize="@dimen/text_label_md"
         android:textColor="@color/color_on_background"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/poppins"
+        android:textStyle="bold"
         android:gravity="center"
         android:maxLines="2"
         android:ellipsize="end"
-        android:layout_marginTop="6dp" />
+        android:layout_marginTop="@dimen/spacing_sm" />
 
     <!-- Role / Job -->
     <TextView
@@ -37,11 +39,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Character"
-        android:textSize="10sp"
+        android:textSize="@dimen/text_label_sm"
         android:textColor="@color/color_text_hint"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
         android:maxLines="1"
         android:ellipsize="end"
-        android:layout_marginTop="2dp" />
+        android:layout_marginTop="@dimen/spacing_xxs" />
 
 </LinearLayout>

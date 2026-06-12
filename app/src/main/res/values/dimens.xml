@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Text Sizes -->
+    <!-- Text Sizes (sp) -->
     <dimen name="text_display_xl">40sp</dimen>
     <dimen name="text_display_lg">32sp</dimen>
     <dimen name="text_display_md">26sp</dimen>
@@ -18,7 +18,11 @@
     <dimen name="text_label_md">11sp</dimen>
     <dimen name="text_label_sm">10sp</dimen>
 
-    <!-- Spacing System -->
+    <!-- Large Text/Emoji Sizes (sp) -->
+    <dimen name="text_size_emoji_lg">48sp</dimen>
+    <dimen name="text_size_emoji_xl">56sp</dimen>
+
+    <!-- Spacing System (dp) -->
     <dimen name="spacing_xxs">2dp</dimen>
     <dimen name="spacing_xs">4dp</dimen>
     <dimen name="spacing_sm">8dp</dimen>
@@ -33,6 +37,7 @@
 
     <!-- Screen Margins -->
     <dimen name="screen_margin">20dp</dimen>
+    <dimen name="header_margin_top">36dp</dimen>
     <dimen name="section_margin_top">24dp</dimen>
     <dimen name="item_margin_top">12dp</dimen>
 

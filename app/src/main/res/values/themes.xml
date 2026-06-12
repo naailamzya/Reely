@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--
-        ✅ FIX: Gunakan DayNight sebagai parent supaya
-        AppCompatDelegate.setDefaultNightMode() bisa bekerja.
-
-        Theme.Material3.DayNight akan otomatis switch antara
-        Light dan Dark berdasarkan MODE yang di-set di AppCompatDelegate.
-    -->
-
-    <!-- BASE THEME — DayNight aware -->
+    <!-- Base theme -->
     <style name="Theme.Reely" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
@@ -24,9 +16,18 @@
         <item name="android:textColorSecondary">@color/color_text_secondary</item>
         <item name="android:statusBarColor">@color/color_background</item>
         <item name="android:navigationBarColor">@color/color_background</item>
+
+        <!-- Global Font -->
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
-    <!-- Night Cinema alias — untuk backward compat -->
+    <!-- Gaya untuk membuat ImageView menjadi bulat sempurna -->
+    <style name="CircleAppearance">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Night Cinema alias -->
     <style name="Theme.Reely.NightCinema" parent="Theme.Reely" />
 
     <!-- Soft Cinema alias -->
@@ -57,10 +58,15 @@
     <style name="TextAppearance.Reely.HeroTitle" parent="TextAppearance.Material3.DisplaySmall">
         <item name="android:textSize">32sp</item>
         <item name="android:letterSpacing">0.05</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.Reely.SectionLabel" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
 </resources>
