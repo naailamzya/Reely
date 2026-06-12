@@ -12,7 +12,7 @@
     <string name="splash_tagline">Reely good movies, reely you.</string>
 
     <string name="login_title">Welcome to REELY</string>
-    <string name="login_subtitle">Enter your name to begin your cinematic journey</string>
+    <string name="login_subtitle">Enter your name to begin your journey</string>
     <string name="hint_username">Your name</string>
     <string name="hint_password">Create a password</string>
     <string name="btn_login">Let\'s Watch</string>
