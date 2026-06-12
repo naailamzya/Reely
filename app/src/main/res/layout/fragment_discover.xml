@@ -48,7 +48,6 @@
                     android:fontFamily="@font/poppins"
                     android:layout_marginTop="4dp" />
 
-                <!-- Modern Search Bar -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -94,7 +93,6 @@
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!-- Persistent Filters Area -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -216,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
-                android:text="You've reached the end ✨"
+                android:text="You've reached the end "
                 android:textColor="@color/color_text_hint"
                 android:textSize="13sp"
                 android:fontFamily="@font/poppins"

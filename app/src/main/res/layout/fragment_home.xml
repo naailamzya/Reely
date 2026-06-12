@@ -19,7 +19,6 @@
             android:orientation="vertical"
             android:paddingBottom="100dp">
 
-            <!-- HERO BANNER SECTION - IMMERSIVE CINEMATIC LOOK -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="520dp">
@@ -30,7 +29,6 @@
                     android:layout_height="match_parent"
                     android:overScrollMode="never" />
 
-                <!-- Transparent Header/Greeting with Status Bar Padding -->
                 <RelativeLayout
                     android:id="@+id/layoutGreeting"
                     android:layout_width="match_parent"
@@ -79,7 +77,6 @@
                 layout="@layout/layout_shimmer_home"
                 android:visibility="gone" />
 
-            <!-- MAIN CONTENT SHEET -->
             <LinearLayout
                 android:id="@+id/layoutContent"
                 android:layout_width="match_parent"
@@ -89,7 +86,6 @@
                 android:background="@drawable/bg_content_sheet"
                 android:paddingTop="32dp">
 
-                <!-- Now Playing Section -->
                 <LinearLayout
                     android:id="@+id/sectionNowPlaying"
                     android:layout_width="match_parent"
@@ -137,7 +133,6 @@
                         android:overScrollMode="never" />
                 </LinearLayout>
 
-                <!-- Trending Section -->
                 <LinearLayout
                     android:id="@+id/sectionTrending"
                     android:layout_width="match_parent"
@@ -186,7 +181,6 @@
                         android:overScrollMode="never" />
                 </LinearLayout>
 
-                <!-- Upcoming Section -->
                 <LinearLayout
                     android:id="@+id/sectionUpcoming"
                     android:layout_width="match_parent"

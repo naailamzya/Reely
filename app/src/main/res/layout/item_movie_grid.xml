@@ -30,7 +30,6 @@
                 android:contentDescription="@string/content_description_movie_poster"
                 android:src="@drawable/ic_placeholder_movie" />
 
-            <!-- Glassmorphism-like Rating Badge -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,8 +67,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Bottom Gradient Overlay for Title readability if needed,
-                 but we put title outside -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"

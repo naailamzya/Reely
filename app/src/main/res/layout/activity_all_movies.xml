@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/color_background">
 
-    <!-- Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -22,7 +21,6 @@
             app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationIconTint="@color/color_on_background" />
 
-        <!-- Category title -->
         <TextView
             android:id="@+id/tvCategoryTitle"
             android:layout_width="wrap_content"
@@ -37,7 +35,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Main content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScroll"
         android:layout_width="match_parent"
@@ -51,7 +48,6 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/spacing_xl">
 
-            <!-- Movie grid RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvAllMovies"
                 android:layout_width="match_parent"
@@ -62,7 +58,6 @@
                 android:overScrollMode="never"
                 android:nestedScrollingEnabled="false" />
 
-            <!-- Loading more indicator -->
             <ProgressBar
                 android:id="@+id/progressLoadMore"
                 android:layout_width="wrap_content"
@@ -72,7 +67,6 @@
                 android:indeterminateTint="@color/color_primary"
                 android:visibility="gone" />
 
-            <!-- Load More button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLoadMore"
                 android:layout_width="wrap_content"
@@ -89,7 +83,6 @@
                 app:backgroundTint="@color/color_primary"
                 app:cornerRadius="@dimen/radius_pill" />
 
-            <!-- End of list message -->
             <TextView
                 android:id="@+id/tvEndOfList"
                 android:layout_width="wrap_content"
@@ -102,7 +95,6 @@
                 android:layout_marginVertical="@dimen/spacing_lg"
                 android:visibility="gone" />
 
-            <!-- Error state -->
             <include
                 android:id="@+id/layoutError"
                 layout="@layout/layout_error_state"
