@@ -3,9 +3,6 @@ package com.reely.models;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-/**
- * REELY — MovieDetail (Enhanced with budget + revenue)
- */
 public class MovieDetail {
 
     @SerializedName("id")
@@ -50,14 +47,11 @@ public class MovieDetail {
     @SerializedName("genres")
     private List<Genre> genres;
 
-    // ✅ BARU
     @SerializedName("budget")
     private long budget;
 
     @SerializedName("revenue")
     private long revenue;
-
-    // ── Getters ───────────────────────────────────────────────────
 
     public int getId()                  { return id; }
     public String getTitle()            { return title; }
@@ -75,8 +69,6 @@ public class MovieDetail {
     public List<Genre> getGenres()      { return genres; }
     public long getBudget()             { return budget; }
     public long getRevenue()            { return revenue; }
-
-    // ── Helpers ───────────────────────────────────────────────────
 
     public String getFullPosterUrl(String size) {
         if (posterPath == null || posterPath.isEmpty()) return null;
@@ -111,9 +103,6 @@ public class MovieDetail {
         return sb.toString();
     }
 
-    /**
-     * Format angka besar: 150000000 → "$150M"
-     */
     public String getFormattedBudget() {
         if (budget <= 0) return "N/A";
         return formatMoney(budget);

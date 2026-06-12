@@ -6,8 +6,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import com.reely.api.ApiClient;
 import com.reely.api.TmdbApiService;
+import com.reely.models.Genre;
 import com.reely.models.Movie;
 import com.reely.models.MovieResponse;
+import com.reely.repository.MovieRepository;
 import com.reely.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,31 +17,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * REELY — DiscoverViewModel
- *
- * Mengelola state untuk Discover Fragment:
- * - Search by keyword
- * - Filter by genre
- * - Sort by popularity atau rating
- * - Pagination
- */
 public class DiscoverViewModel extends AndroidViewModel {
 
-    // Sort options
     public static final String SORT_POPULARITY = "popularity.desc";
     public static final String SORT_RATING     = "vote_average.desc";
 
     private final TmdbApiService apiService;
+    private final MovieRepository repository;
 
-    // ── State filter ──────────────────────────────────────────────
     private String currentQuery   = "";     // search keyword
     private int    currentGenreId = 0;      // 0 = All genres
     private String currentSort    = SORT_POPULARITY;
     private int    currentPage    = 0;
 
-    // ── LiveData ──────────────────────────────────────────────────
     private final MutableLiveData<List<Movie>> newPage      = new MutableLiveData<>();
+    private final MutableLiveData<List<Genre>> genres       = new MutableLiveData<>();
     private final MutableLiveData<Boolean>     isLoading    = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean>     isLoadingMore= new MutableLiveData<>(false);
     private final MutableLiveData<Boolean>     isError      = new MutableLiveData<>(false);
@@ -50,19 +42,24 @@ public class DiscoverViewModel extends AndroidViewModel {
     public DiscoverViewModel(@NonNull Application application) {
         super(application);
         apiService = ApiClient.getService();
+        repository = MovieRepository.getInstance(application);
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  INITIAL LOAD
-    // ─────────────────────────────────────────────────────────────
-
     public void loadInitial() {
+        loadGenres();
         resetAndLoad();
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  FILTER ACTIONS — each resets and reloads
-    // ─────────────────────────────────────────────────────────────
+    private void loadGenres() {
+        repository.getGenres(genreList -> {
+            if (genreList != null) {
+                List<Genre> fullList = new ArrayList<>();
+                fullList.add(new Genre(0, "All"));
+                fullList.addAll(genreList);
+                genres.setValue(fullList);
+            }
+        });
+    }
 
     public void search(String query) {
         this.currentQuery = query == null ? "" : query.trim();
@@ -79,10 +76,6 @@ public class DiscoverViewModel extends AndroidViewModel {
         resetAndLoad();
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  PAGINATION
-    // ─────────────────────────────────────────────────────────────
-
     public void loadNextPage() {
         Boolean loading     = isLoading.getValue();
         Boolean loadingMore = isLoadingMore.getValue();
@@ -96,10 +89,6 @@ public class DiscoverViewModel extends AndroidViewModel {
     }
 
     public void retry() { resetAndLoad(); }
-
-    // ─────────────────────────────────────────────────────────────
-    //  INTERNAL
-    // ─────────────────────────────────────────────────────────────
 
     private void resetAndLoad() {
         currentPage = 0;
@@ -115,14 +104,12 @@ public class DiscoverViewModel extends AndroidViewModel {
         Call<MovieResponse> call;
 
         if (!currentQuery.isEmpty()) {
-            // Search mode
             call = apiService.searchMovies(
                     ApiClient.getApiKey(),
                     Constants.DEFAULT_LANGUAGE,
                     currentQuery,
                     page);
         } else {
-            // Discover mode — genre + sort
             String genreParam = currentGenreId > 0
                     ? String.valueOf(currentGenreId) : null;
             call = apiService.discoverMovies(
@@ -131,7 +118,7 @@ public class DiscoverViewModel extends AndroidViewModel {
                     genreParam,
                     currentSort,
                     page,
-                    page == 1 ? 50 : 0); // min vote count hanya untuk page 1
+                    page == 1 ? 50 : 0);
         }
 
         call.enqueue(new Callback<MovieResponse>() {
@@ -152,7 +139,6 @@ public class DiscoverViewModel extends AndroidViewModel {
                         newPage.setValue(movies);
                         isEmpty.setValue(false);
 
-                        // Kalau hasil < 20, sudah halaman terakhir
                         if (movies.size() < 20) hasMore.setValue(false);
                     }
                 } else {
@@ -170,8 +156,8 @@ public class DiscoverViewModel extends AndroidViewModel {
         });
     }
 
-    // ── Getters ───────────────────────────────────────────────────
     public MutableLiveData<List<Movie>> getNewPage()       { return newPage; }
+    public MutableLiveData<List<Genre>> getGenres()        { return genres; }
     public MutableLiveData<Boolean>     getIsLoading()     { return isLoading; }
     public MutableLiveData<Boolean>     getIsLoadingMore() { return isLoadingMore; }
     public MutableLiveData<Boolean>     getIsError()       { return isError; }

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ✅ Membuat sistem bar transparan dan memungkinkan konten menggambar di bawahnya
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                     navController
             );
 
-            // Listener untuk menyesuaikan warna bar berdasarkan fragment yang aktif
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
                 updateSystemUIAppearance(destination.getId());
             });
@@ -60,23 +58,15 @@ public class MainActivity extends AppCompatActivity {
         boolean isNight = ThemeManager.isNightCinema(this);
         WindowInsetsControllerCompat controller =
                 WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        
-        // 1. Atur Bottom Navigation View background
-        // Kita gunakan warna background utama agar menyatu dengan konten fragment
-        binding.bottomNavigation.setBackgroundColor(getResources().getColor(R.color.color_background, getTheme()));
-        binding.bottomNavigation.setElevation(0f); // Hilangkan bayangan agar terlihat 'flat' dan modern
 
-        // 2. Atur Ikon Status Bar
+        binding.bottomNavigation.setBackgroundColor(getResources().getColor(R.color.color_background, getTheme()));
+        binding.bottomNavigation.setElevation(0f);
+
         if (destinationId == R.id.homeFragment) {
-            // Di Home, ada Hero Banner (gambar). Kita ingin ikon status bar selalu putih (terang)
             controller.setAppearanceLightStatusBars(false);
         } else {
-            // Di halaman lain, sesuaikan dengan tema (Light -> ikon gelap, Dark -> ikon putih)
             controller.setAppearanceLightStatusBars(!isNight);
         }
-
-        // 3. Atur Ikon Navigation Bar (bawah)
-        // Karena background navbar kita solid color_background, ikon harus mengikuti tema
         controller.setAppearanceLightNavigationBars(!isNight);
     }
 

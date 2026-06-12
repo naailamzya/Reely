@@ -2,25 +2,22 @@ package com.reely.models;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Model untuk video (trailer) dari TMDB.
- */
 public class Video {
 
     @SerializedName("id")
     private String id;
 
     @SerializedName("key")
-    private String key;       // YouTube video key
+    private String key;
 
     @SerializedName("name")
     private String name;
 
     @SerializedName("site")
-    private String site;      // "YouTube"
+    private String site;
 
     @SerializedName("type")
-    private String type;      // "Trailer", "Teaser", dll
+    private String type;
 
     @SerializedName("official")
     private boolean official;
@@ -35,16 +32,10 @@ public class Video {
     public boolean isYouTube() { return "YouTube".equals(site); }
     public boolean isTrailer() { return "Trailer".equals(type); }
 
-    /**
-     * URL thumbnail YouTube dari key.
-     */
     public String getThumbnailUrl() {
         return "https://img.youtube.com/vi/" + key + "/hqdefault.jpg";
     }
 
-    /**
-     * URL YouTube untuk dibuka di browser/app.
-     */
     public String getYouTubeUrl() {
         return "https://www.youtube.com/watch?v=" + key;
     }

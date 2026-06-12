@@ -58,7 +58,6 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
         if (position >= 0 && position < movies.size()) {
             movies.remove(position);
             notifyItemRemoved(position);
-            // Perbaiki: update posisi dari position hingga akhir
             notifyItemRangeChanged(position, movies.size() - position);
         }
     }

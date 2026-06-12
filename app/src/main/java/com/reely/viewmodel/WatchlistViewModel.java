@@ -30,7 +30,7 @@ public class WatchlistViewModel extends AndroidViewModel {
         repository.removeFromWatchlist(movieId, success -> {
             if (success) {
                 toastMessage.setValue("Removed from watchlist");
-                loadWatchlist(); // reload ulang
+                loadWatchlist();
             } else {
                 toastMessage.setValue("Failed to remove");
             }

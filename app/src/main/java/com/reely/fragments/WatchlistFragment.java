@@ -27,7 +27,6 @@ public class WatchlistFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Menggunakan layout tradisional tanpa View Binding
         return inflater.inflate(R.layout.fragment_watchlist, container, false);
     }
 
@@ -35,7 +34,6 @@ public class WatchlistFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Inisialisasi View secara tradisional (findViewById)
         rvWatchlist = view.findViewById(R.id.rvWatchlist);
         tvWatchlistCount = view.findViewById(R.id.tvWatchlistCount);
         layoutEmptyWatchlist = view.findViewById(R.id.layoutEmptyWatchlist);

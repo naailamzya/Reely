@@ -13,6 +13,7 @@ import com.reely.models.MovieDetail;
 import com.reely.models.Video;
 import com.reely.models.VideoResponse;
 import com.reely.repository.MovieRepository;
+import com.reely.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -25,6 +26,7 @@ public class DetailViewModel extends AndroidViewModel {
     private final MutableLiveData<MovieDetail> movieDetail = new MutableLiveData<>();
     private final MutableLiveData<List<CastItem>> castList = new MutableLiveData<>();
     private final MutableLiveData<List<CastItem>> crewList = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> recommendations = new MutableLiveData<>();
     private final MutableLiveData<Video> mainTrailer = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isInWatchlist = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -43,6 +45,7 @@ public class DetailViewModel extends AndroidViewModel {
         loadDetail(movieId);
         loadCredits(movieId);
         loadVideos(movieId);
+        loadRecommendations(movieId);
         checkWatchlistStatus(movieId);
     }
 
@@ -58,7 +61,7 @@ public class DetailViewModel extends AndroidViewModel {
     }
 
     private void loadCredits(int movieId) {
-        apiService.getMovieCredits(movieId, ApiClient.getApiKey(), "en-US")
+        apiService.getMovieCredits(movieId, ApiClient.getApiKey(), Constants.DEFAULT_LANGUAGE)
                 .enqueue(new Callback<Credits>() {
                     @Override
                     public void onResponse(Call<Credits> call, Response<Credits> response) {
@@ -89,7 +92,7 @@ public class DetailViewModel extends AndroidViewModel {
     }
 
     private void loadVideos(int movieId) {
-        apiService.getMovieVideos(movieId, ApiClient.getApiKey(), "en-US")
+        apiService.getMovieVideos(movieId, ApiClient.getApiKey(), Constants.DEFAULT_LANGUAGE)
                 .enqueue(new Callback<VideoResponse>() {
                     @Override
                     public void onResponse(Call<VideoResponse> call, Response<VideoResponse> response) {
@@ -100,6 +103,14 @@ public class DetailViewModel extends AndroidViewModel {
                     @Override
                     public void onFailure(Call<VideoResponse> call, Throwable t) {}
                 });
+    }
+
+    private void loadRecommendations(int movieId) {
+        repository.getRecommendations(movieId, 1, movies -> {
+            if (movies != null) {
+                recommendations.setValue(movies);
+            }
+        });
     }
 
     private void checkWatchlistStatus(int movieId) {
@@ -132,6 +143,7 @@ public class DetailViewModel extends AndroidViewModel {
     public MutableLiveData<MovieDetail> getMovieDetail() { return movieDetail; }
     public MutableLiveData<List<CastItem>> getCastList() { return castList; }
     public MutableLiveData<List<CastItem>> getCrewList() { return crewList; }
+    public MutableLiveData<List<Movie>> getRecommendations() { return recommendations; }
     public MutableLiveData<Video> getMainTrailer() { return mainTrailer; }
     public MutableLiveData<Boolean> getIsInWatchlist() { return isInWatchlist; }
     public MutableLiveData<Boolean> getIsLoading() { return isLoading; }

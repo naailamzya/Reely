@@ -2,14 +2,14 @@
 <resources>
 
     <string name="app_name">REELY</string>
-    <string name="app_tagline">Feel the movie.</string>
+    <string name="app_tagline">Reely good movies, reely you.</string>
 
     <string name="nav_home">Home</string>
     <string name="nav_mood">Mood</string>
     <string name="nav_watchlist">Watchlist</string>
     <string name="nav_profile">Profile</string>
 
-    <string name="splash_tagline">Feel the movie. Choose your mood.</string>
+    <string name="splash_tagline">Reely good movies, reely you.</string>
 
     <string name="login_title">Welcome to REELY</string>
     <string name="login_subtitle">Enter your name to begin your cinematic journey</string>
@@ -29,31 +29,15 @@
     <string name="home_greeting_afternoon">Good Afternoon,</string>
     <string name="home_greeting_evening">Good Evening,</string>
 
-    <string name="mood_title">How are you feeling?</string>
-    <string name="mood_subtitle">We\'ll pick the perfect movie for your mood</string>
-    <string name="mood_recommendations">Movies for your mood</string>
-
-    <string name="mood_comfort">Comfort Movie</string>
-    <string name="mood_rainy">Rainy Night</string>
-    <string name="mood_mindblow">Mind Blown</string>
-    <string name="mood_horror">Horror Night</string>
-    <string name="mood_adrenaline">Adrenaline Rush</string>
-    <string name="mood_heartbroken">Heartbroken</string>
-
-    <string name="quote_comfort">Wrap yourself in warmth and let the story hold you.</string>
-    <string name="quote_rainy">The rain outside mirrors the film within.</string>
-    <string name="quote_mindblow">Prepare to question everything you think you know.</string>
-    <string name="quote_horror">Darkness has a way of revealing the truth.</string>
-    <string name="quote_adrenaline">Live fast. Feel everything. No brakes.</string>
-    <string name="quote_heartbroken">Sometimes a film cries for you when you can\'t.</string>
-
-    <string name="detail_overview">Overview</string>
+    <string name="detail_overview">Storyline</string>
     <string name="detail_rating">Rating</string>
     <string name="detail_release">Release Date</string>
     <string name="detail_genres">Genres</string>
+    <string name="detail_cast">Top Cast</string>
+    <string name="detail_recommendations">You might also like</string>
     <string name="detail_add_watchlist">Add to Watchlist</string>
     <string name="detail_remove_watchlist">Remove from Watchlist</string>
-    <string name="detail_added_success">Added to your watchlist ✨</string>
+    <string name="detail_added_success">Added to your watchlist!</string>
     <string name="detail_removed_success">Removed from watchlist</string>
 
     <string name="watchlist_title">My Watchlist</string>

@@ -35,7 +35,7 @@
 
     <!-- Splash -->
     <style name="Theme.Reely.Splash" parent="Theme.Reely">
-        <item name="android:windowFullscreen">true</item>
+    <item name="android:windowFullscreen">true</item>
     </style>
 
     <!-- Card styles -->

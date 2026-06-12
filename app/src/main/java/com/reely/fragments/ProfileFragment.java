@@ -55,7 +55,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupStats() {
-        // Ambil jumlah asli dari database watchlist
         repository.getAllWatchlistMovies(movies -> {
             if (movies != null) {
                 binding.tvWatchlistCount.setText(String.valueOf(movies.size()));

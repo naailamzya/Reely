@@ -1,0 +1,15 @@
+<!-- res/drawable/ic_splash_logo.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Lingkaran latar belakang (opsional, bisa dihilangkan jika ingin transparan) -->
+    <path
+        android:fillColor="@color/color_primary"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z"/>
+    <!-- Ikon play (segitiga) di tengah -->
+    <path
+        android:fillColor="@color/color_on_primary"
+        android:pathData="M10,16.5l6,-4.5 -6,-4.5v9z"/>
+</vector>

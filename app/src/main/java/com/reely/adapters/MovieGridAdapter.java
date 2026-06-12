@@ -14,10 +14,6 @@ import com.reely.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * REELY — MovieGridAdapter
- * Grid adapter untuk All Movies screen (2 kolom).
- */
 public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.GridViewHolder> {
 
     private final List<Movie> movies = new ArrayList<>();
@@ -47,18 +43,12 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Grid
     @Override
     public int getItemCount() { return movies.size(); }
 
-    /**
-     * Set data awal (page 1).
-     */
     public void setMovies(List<Movie> newMovies) {
         movies.clear();
         if (newMovies != null) movies.addAll(newMovies);
         notifyDataSetChanged();
     }
 
-    /**
-     * Tambah data berikutnya (page 2, 3, dst).
-     */
     public void appendMovies(List<Movie> moreMovies) {
         if (moreMovies == null) return;
         int startPos = movies.size();

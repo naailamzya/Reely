@@ -14,6 +14,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
 import com.reely.R;
 import com.reely.adapters.CastAdapter;
+import com.reely.adapters.MovieAdapter;
 import com.reely.databinding.ActivityMovieDetailBinding;
 import com.reely.models.Genre;
 import com.reely.models.MovieDetail;
@@ -26,6 +27,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ActivityMovieDetailBinding binding;
     private DetailViewModel viewModel;
     private CastAdapter castAdapter;
+    private MovieAdapter recAdapter;
     private int movieId;
     private String currentTrailerKey;
 
@@ -59,6 +61,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         binding.rvCast.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
         binding.rvCast.setAdapter(castAdapter);
+
+        recAdapter = new MovieAdapter(movie ->
+                MovieDetailActivity.start(this, movie.getId()));
+        binding.rvRecommendations.setLayoutManager(new LinearLayoutManager(
+                this, LinearLayoutManager.HORIZONTAL, false));
+        binding.rvRecommendations.setAdapter(recAdapter);
     }
 
     private void setupViewModel() {
@@ -75,6 +83,15 @@ public class MovieDetailActivity extends AppCompatActivity {
             if (cast != null && !cast.isEmpty()) {
                 castAdapter.setCast(cast);
                 binding.layoutCastSection.setVisibility(View.VISIBLE);
+            }
+        });
+
+        viewModel.getRecommendations().observe(this, movies -> {
+            if (movies != null && !movies.isEmpty()) {
+                recAdapter.setMovies(movies);
+                binding.layoutRecSection.setVisibility(View.VISIBLE);
+            } else {
+                binding.layoutRecSection.setVisibility(View.GONE);
             }
         });
 
@@ -107,7 +124,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        // Play Trailer logic
         View.OnClickListener playTrailerListener = v -> {
             if (currentTrailerKey != null) {
                 String youtubeUrl = "https://www.youtube.com/watch?v=" + currentTrailerKey;
@@ -122,14 +138,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         
         binding.btnPlayTrailer.setOnClickListener(playTrailerListener);
         binding.btnTrailerAction.setOnClickListener(playTrailerListener);
-
-        // Watchlist logic
         binding.btnSmallAddWatchlist.setOnClickListener(v -> {
-            MovieDetail detail = viewModel.getMovieDetail().getValue();
-            if (detail != null) viewModel.toggleWatchlist(detail);
-        });
-        
-        binding.btnAddWatchlist.setOnClickListener(v -> {
             MovieDetail detail = viewModel.getMovieDetail().getValue();
             if (detail != null) viewModel.toggleWatchlist(detail);
         });
@@ -162,7 +171,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         binding.tvDetailTitle.setText(detail.getTitle());
         binding.tvDetailRating.setText("★ " + detail.getFormattedRating());
-        binding.tvDetailReleaseDate.setText(detail.getReleaseDate().split("-")[0]); // Ambil tahun saja agar lebih rapi
+        binding.tvDetailReleaseDate.setText(detail.getReleaseDate().split("-")[0]);
         binding.tvDetailRuntime.setText(detail.getFormattedRuntime());
         binding.tvDetailOverview.setText(detail.getOverview());
 
@@ -206,11 +215,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (isInWatchlist) {
             binding.btnSmallAddWatchlist.setText("Saved");
             binding.btnSmallAddWatchlist.setIconResource(R.drawable.ic_bookmark_filled);
-            binding.btnAddWatchlist.setText(getString(R.string.detail_remove_watchlist));
         } else {
             binding.btnSmallAddWatchlist.setText("Save");
             binding.btnSmallAddWatchlist.setIconResource(R.drawable.ic_bookmark_outline);
-            binding.btnAddWatchlist.setText(getString(R.string.detail_add_watchlist));
         }
     }
 

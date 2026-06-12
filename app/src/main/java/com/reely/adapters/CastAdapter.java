@@ -13,9 +13,6 @@ import com.reely.models.CastItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Adapter untuk cast/crew horizontal RecyclerView.
- */
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder> {
 
     private List<CastItem> cast = new ArrayList<>();

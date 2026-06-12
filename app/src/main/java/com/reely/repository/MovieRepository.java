@@ -4,6 +4,8 @@ import android.content.Context;
 import com.reely.api.ApiClient;
 import com.reely.api.TmdbApiService;
 import com.reely.database.WatchlistDao;
+import com.reely.models.Genre;
+import com.reely.models.GenreResponse;
 import com.reely.models.Movie;
 import com.reely.models.MovieDetail;
 import com.reely.models.MovieResponse;
@@ -30,10 +32,6 @@ public class MovieRepository {
         }
         return instance;
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  API CALLS (callback di main thread)
-    // ─────────────────────────────────────────────────────────────
 
     public void getNowPlayingMovies(int page, RepositoryCallback<List<Movie>> callback) {
         apiService.getNowPlayingMovies(ApiClient.getApiKey(), Constants.DEFAULT_LANGUAGE, page)
@@ -110,9 +108,35 @@ public class MovieRepository {
                 });
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  WATCHLIST DATABASE (sudah benar)
-    // ─────────────────────────────────────────────────────────────
+    public void getGenres(RepositoryCallback<List<Genre>> callback) {
+        apiService.getGenres(ApiClient.getApiKey(), Constants.DEFAULT_LANGUAGE)
+                .enqueue(new Callback<GenreResponse>() {
+                    @Override
+                    public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
+                        List<Genre> genres = (response.isSuccessful() && response.body() != null) ? response.body().getGenres() : null;
+                        AppExecutors.getInstance().mainThread(() -> callback.onResult(genres));
+                    }
+                    @Override
+                    public void onFailure(Call<GenreResponse> call, Throwable t) {
+                        AppExecutors.getInstance().mainThread(() -> callback.onResult(null));
+                    }
+                });
+    }
+
+    public void getRecommendations(int movieId, int page, RepositoryCallback<List<Movie>> callback) {
+        apiService.getRecommendations(movieId, ApiClient.getApiKey(), Constants.DEFAULT_LANGUAGE, page)
+                .enqueue(new Callback<MovieResponse>() {
+                    @Override
+                    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                        List<Movie> movies = (response.isSuccessful() && response.body() != null) ? response.body().getResults() : null;
+                        AppExecutors.getInstance().mainThread(() -> callback.onResult(movies));
+                    }
+                    @Override
+                    public void onFailure(Call<MovieResponse> call, Throwable t) {
+                        AppExecutors.getInstance().mainThread(() -> callback.onResult(null));
+                    }
+                });
+    }
 
     public void addToWatchlist(Movie movie, RepositoryCallback<Boolean> callback) {
         AppExecutors.getInstance().diskIO().execute(() -> {

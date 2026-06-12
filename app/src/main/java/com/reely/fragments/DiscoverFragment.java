@@ -21,9 +21,10 @@ import com.reely.R;
 import com.reely.activities.MovieDetailActivity;
 import com.reely.adapters.MovieGridAdapter;
 import com.reely.databinding.FragmentDiscoverBinding;
-import com.reely.utils.Constants;
+import com.reely.models.Genre;
 import com.reely.utils.NetworkUtils;
 import com.reely.viewmodel.DiscoverViewModel;
+import java.util.List;
 
 public class DiscoverFragment extends Fragment {
 
@@ -33,14 +34,6 @@ public class DiscoverFragment extends Fragment {
 
     private final Handler searchHandler = new Handler(Looper.getMainLooper());
     private static final long SEARCH_DELAY_MS = 500L;
-
-    private static final int[] GENRE_IDS = {
-            0, 28, 35, 18, 27, 878, 53, 10749, 10751, 16, 80
-    };
-    private static final String[] GENRE_NAMES = {
-            "All", "Action", "Comedy", "Drama", "Horror",
-            "Sci-Fi", "Thriller", "Romance", "Family", "Animation", "Crime"
-    };
 
     @Nullable
     @Override
@@ -55,10 +48,8 @@ public class DiscoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // ✅ FIX: Gunakan padding pada header agar tidak menempel ke Status Bar
         ViewCompat.setOnApplyWindowInsetsListener(binding.layoutDiscoverHeader, (v, insets) -> {
             int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-            // Gunakan header_margin_top dari dimens (36dp) + tinggi status bar
             int basePaddingTop = getResources().getDimensionPixelSize(R.dimen.header_margin_top);
             v.setPadding(v.getPaddingLeft(), statusBarHeight + basePaddingTop,
                     v.getPaddingRight(), v.getPaddingBottom());
@@ -66,7 +57,6 @@ public class DiscoverFragment extends Fragment {
         });
 
         setupRecyclerView();
-        setupGenreChips();
         setupSearch();
         setupSortButtons();
         setupViewModel();
@@ -89,10 +79,14 @@ public class DiscoverFragment extends Fragment {
         binding.rvDiscover.setNestedScrollingEnabled(false);
     }
 
-    private void setupGenreChips() {
-        for (int i = 0; i < GENRE_NAMES.length; i++) {
+    private void setupGenreChips(List<Genre> genreList) {
+        binding.chipGroupGenre.removeAllViews();
+        if (genreList == null) return;
+
+        for (int i = 0; i < genreList.size(); i++) {
+            Genre genre = genreList.get(i);
             Chip chip = new Chip(requireContext());
-            chip.setText(GENRE_NAMES[i]);
+            chip.setText(genre.getName());
             chip.setCheckable(true);
             chip.setChecked(i == 0);
             chip.setChipBackgroundColorResource(R.color.color_surface);
@@ -102,10 +96,13 @@ public class DiscoverFragment extends Fragment {
             chip.setChipStrokeColorResource(R.color.color_stroke);
             chip.setChipStrokeWidth(1f);
 
-            final int genreId = GENRE_IDS[i];
+            if (i == 0) {
+                updateChipStyles(chip);
+            }
+
             chip.setOnClickListener(v -> {
                 updateChipStyles(chip);
-                viewModel.filterByGenre(genreId);
+                viewModel.filterByGenre(genre.getId());
             });
 
             binding.chipGroupGenre.addView(chip);
@@ -173,6 +170,9 @@ public class DiscoverFragment extends Fragment {
 
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
+        
+        viewModel.getGenres().observe(getViewLifecycleOwner(), this::setupGenreChips);
+
         viewModel.getNewPage().observe(getViewLifecycleOwner(), movies -> {
             if (movies == null) return;
             if (viewModel.getCurrentPage() == 1) {

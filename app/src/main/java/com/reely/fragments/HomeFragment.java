@@ -45,10 +45,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // ✅ FIX: Turunkan posisi greeting sedikit lebih bawah
         ViewCompat.setOnApplyWindowInsetsListener(binding.layoutGreeting, (v, insets) -> {
             int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-            v.setPadding(v.getPaddingLeft(), statusBarHeight + 32, // Ditambah menjadi 32
+            v.setPadding(v.getPaddingLeft(), statusBarHeight + 32,
                     v.getPaddingRight(), v.getPaddingBottom());
             return insets;
         });
@@ -163,7 +162,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupSwipeRefresh() {
-        // Menggunakan warna dinamis
         binding.swipeRefreshHome.setColorSchemeResources(
                 com.reely.R.color.color_primary);
         binding.swipeRefreshHome.setProgressBackgroundColorSchemeResource(

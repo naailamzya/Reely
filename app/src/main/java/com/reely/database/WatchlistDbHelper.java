@@ -6,12 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class WatchlistDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "reely_watchlist.db";
-
-    // ✅ BUMP VERSION ke 2 untuk memastikan kolom genre_ids dan added_at dibuat jika sebelumnya belum ada
     private static final int DATABASE_VERSION = 2;
-
     private static WatchlistDbHelper instance;
-
     private static final String SQL_CREATE_TABLE =
             "CREATE TABLE " + WatchlistContract.TABLE_NAME + " (" +
                     WatchlistContract.COLUMN_ID           + " INTEGER PRIMARY KEY, " +
@@ -46,7 +42,6 @@ public class WatchlistDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Karena ini aplikasi lokal, kita drop dan create ulang agar skema sinkron
         db.execSQL(SQL_DROP_TABLE);
         onCreate(db);
     }
